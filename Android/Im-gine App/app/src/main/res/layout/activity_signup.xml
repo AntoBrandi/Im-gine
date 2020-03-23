@@ -8,9 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/transparent"
-        android:scaleType="fitXY"
-
-        />
+        android:scaleType="fitXY"/>
     <ImageView
         android:id="@+id/logo"
         android:layout_width="90dp"
@@ -19,13 +17,13 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"/>
     <TextView
-        android:id="@+id/holliday"
+        android:id="@+id/title"
         android:layout_below="@+id/logo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/app_name"
         android:textSize="30dp"
-        android:textColor="#fff"
+        android:textColor="@color/white"
         android:gravity="center"
 
         />
@@ -35,7 +33,7 @@
         android:layout_height="wrap_content"
         android:text="@string/signup_title"
         android:gravity="center"
-        android:textColor="#fff"
+        android:textColor="@color/white"
         android:textSize="20dp"
         android:layout_marginBottom="50dp"/>
 
@@ -69,9 +67,9 @@
                 android:paddingLeft="10dp"
                 android:letterSpacing="0.1"
                 android:hint="@string/hint_email"
-                android:textColor="#fff"
-
-                android:textColorHint="#fff"
+                android:textColor="@color/white"
+                android:id="@+id/email"
+                android:textColorHint="@color/white"
                 android:drawablePadding="10dp"
                 android:textSize="13dp"
                 />
@@ -100,9 +98,10 @@
                 android:paddingLeft="10dp"
                 android:hint="@string/hint_password"
                 android:inputType="textPassword"
-                android:textColor="#fff"
+                android:id="@+id/password"
+                android:textColor="@color/white"
                 android:letterSpacing="0.1"
-                android:textColorHint="#fff"
+                android:textColorHint="@color/white"
                 android:drawablePadding="10dp"
                 android:textSize="13dp"
                 />
@@ -135,23 +134,23 @@
                 android:paddingLeft="10dp"
                 android:hint="@string/hint_confirmPassword"
                 android:inputType="textPassword"
-                android:textColorHint="#fff"
-                android:textColor="#fff"
+                android:textColorHint="@color/white"
+                android:textColor="@color/white"
+                android:id="@+id/password_confirmation"
                 android:textSize="13dp"
                 android:letterSpacing="0.1"
                 android:layout_weight="1"
                 />
         </LinearLayout>
         <custom_font.MyTextView
-            android:id="@+id/getstarted"
+            android:id="@+id/signup"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@drawable/round"
-
             android:text="@string/signup_button"
             android:textStyle="bold"
             android:gravity="center"
-            android:textColor="#fff"
+            android:textColor="@color/white"
             android:layout_above="@+id/bottom"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
@@ -172,13 +171,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/signup_login"
-                android:textColor="#FFF"/>
+                android:textColor="@color/white"/>
             <custom_font.MyTextView
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/help"
                 android:text="@string/signup_help"
-                android:textColor="#FFF"
+                android:textColor="@color/white"
                 android:gravity="end"/>
         </LinearLayout>
 

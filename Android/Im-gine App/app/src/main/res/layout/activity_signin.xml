@@ -19,13 +19,13 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"/>
     <TextView
-        android:id="@+id/holliday"
+        android:id="@+id/title_textView"
         android:layout_below="@+id/logo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/app_name"
         android:textSize="40dp"
-        android:textColor="#fff"
+        android:textColor="@color/white"
         android:gravity="center"
         android:layout_marginTop="70dp"/>
 
@@ -56,13 +56,12 @@
                 android:layout_height="50dp"
                 android:background="#00000000"
                 android:paddingLeft="10dp"
-
                 android:hint="@string/hint_username"
-                android:textColor="#fff"
-
-                android:textColorHint="#fff"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
                 android:drawablePadding="10dp"
                 android:textSize="13dp"
+                android:id="@+id/username"
                 />
         </LinearLayout>
 
@@ -93,22 +92,22 @@
                 android:paddingLeft="10dp"
                 android:hint="@string/hint_password"
                 android:inputType="textPassword"
-                android:textColorHint="#fff"
-                android:textColor="#fff"
+                android:textColorHint="@color/white"
+                android:textColor="@color/white"
                 android:textSize="13dp"
                 android:layout_weight="1"
+                android:id="@+id/password"
                 />
         </LinearLayout>
         <custom_font.MyTextView
-            android:id="@+id/getstarted"
+            android:id="@+id/loginBtn"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@drawable/round"
-
             android:text="@string/signin_button"
             android:textStyle="bold"
             android:gravity="center"
-            android:textColor="#fff"
+            android:textColor="@color/white"
             android:layout_above="@+id/bottom"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
@@ -129,13 +128,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/signing_create"
-                android:textColor="#FFF"/>
+                android:textColor="@color/white"/>
             <custom_font.MyTextView
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/signin_help"
-                android:textColor="#FFF"
+                android:textColor="@color/white"
+                android:id="@+id/help"
                 android:gravity="end"/>
         </LinearLayout>
 

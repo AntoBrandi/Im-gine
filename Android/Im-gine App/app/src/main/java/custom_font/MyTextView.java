@@ -8,7 +8,7 @@ import android.widget.TextView;
 /**
  * Created by one on 3/12/15.
  */
-public class MyTextView extends TextView {
+public class MyTextView extends androidx.appcompat.widget.AppCompatTextView {
 
     public MyTextView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
