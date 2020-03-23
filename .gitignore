@@ -1,1 +1,15 @@
-Android/app/google-services.json
+Android/Im-gine App/*.iml
+Android/Im-gine App/.gradle
+Android/Im-gine App/local.properties
+Android/Im-gine App/.idea/caches
+Android/Im-gine App/.idea/libraries
+Android/Im-gine App/.idea/modules.xml
+Android/Im-gine App/.idea/workspace.xml
+Android/Im-gine App/.idea/navEditor.xml
+Android/Im-gine App/.idea/assetWizardSettings.xml
+Android/Im-gine App/.DS_Store
+Android/Im-gine App/build
+Android/Im-gine App/captures
+Android/Im-gine App/.externalNativeBuild
+Android/Im-gine App/.cxx
+Android/Im-gine App/app/google-services.json
