@@ -1,0 +1,1 @@
+Utilities layout for a chat application, such for example main page with the list of contacts
