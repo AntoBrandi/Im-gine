@@ -4,18 +4,20 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import com.firebase.client.Firebase;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-
+import com.google.firebase.firestore.QuerySnapshot;
 import custom_font.MyEditText;
 import custom_font.MyTextView;
 import model.User;
@@ -40,6 +42,8 @@ public class SignupActivity extends AppCompatActivity {
     private String pass;
     private String pass_confirm;
     private User activeUser;
+    private boolean IsNewUser = false;
+    private ProgressDialog pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +60,7 @@ public class SignupActivity extends AppCompatActivity {
         // style related stuffs
         Typeface custom_fonts = Typeface.createFromAsset(getAssets(), "fonts/ArgonPERSONAL-Regular.otf");
         title.setTypeface(custom_fonts);
+        pd = new ProgressDialog(SignupActivity.this);
 
         // firebase setup
         Firebase.setAndroidContext(this);
@@ -79,9 +84,6 @@ public class SignupActivity extends AppCompatActivity {
                     else if(pass.equals("")){
                         password.setError(getString(R.string.blank_password));
                     }
-                    else if(!user.matches("[A-Za-z0-9]+")){
-                        email.setError(getString(R.string.invalid_character));
-                    }
                     else if(user.length()<5){
                         email.setError(getString(R.string.short_user));
                     }
@@ -91,28 +93,11 @@ public class SignupActivity extends AppCompatActivity {
                     // send the user credential to the server for the registration
                     else{
                         // launch a progress dialog that communicates the ongoing actions
-                        final ProgressDialog pd = new ProgressDialog(SignupActivity.this);
                         pd.setMessage(getString(R.string.loading));
                         pd.show();
                         activeUser = new User(user, pass);
-                        // write the data on the database
-                        db.collection(DATABASE_COLLECTION)
-                                .add(activeUser)
-                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                    @Override
-                                    public void onSuccess(DocumentReference documentReference) {
-                                        pd.dismiss();
-                                        Toast.makeText(SignupActivity.this, getString(R.string.welcome)+" "+user, Toast.LENGTH_LONG).show();
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        pd.dismiss();
-                                        Toast.makeText(SignupActivity.this, getString(R.string.error_generic), Toast.LENGTH_LONG).show();
-                                    }
-                                });
-                        pd.dismiss();
+                        // first read from the database if the inserted user already exist
+                        TryRegister();
                     }
                 }
                 else{
@@ -135,7 +120,57 @@ public class SignupActivity extends AppCompatActivity {
                 // TODO: help page
             }
         });
-
     }
 
+
+    private void TryRegister(){
+        db.collection(DATABASE_COLLECTION)
+                .whereEqualTo("_username", user)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            QuerySnapshot document = task.getResult();
+                            if(document.isEmpty()){
+                                Log.d("BOSCH:", "The query is empty");
+                                InsertUser();
+                            }
+                            else{
+                                Toast.makeText(SignupActivity.this, getString(R.string.user_already_registered), Toast.LENGTH_LONG).show();
+                                Log.d("BOSCH:", "The query is not empty");
+                                pd.dismiss();
+                            }
+                        }else{
+                            pd.dismiss();
+                            Toast.makeText(SignupActivity.this, getString(R.string.error_generic), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+    }
+
+
+    private void InsertUser(){
+        Log.d("BOSCH:", "start the wring section");
+        db.collection(DATABASE_COLLECTION)
+                .add(activeUser)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d("BOSCH:", "write successfully");
+                        pd.dismiss();
+                        Toast.makeText(SignupActivity.this, getString(R.string.welcome), Toast.LENGTH_LONG).show();
+                        Intent it = new Intent(SignupActivity.this, MainActivity.class);
+                        startActivity(it);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("BOSCH:", "write not successfully");
+                        pd.dismiss();
+                        Toast.makeText(SignupActivity.this, getString(R.string.error_generic), Toast.LENGTH_LONG).show();
+                    }
+                });
+    }
 }

@@ -31,6 +31,8 @@
     <string name="password_not_confirmed">The inserted passwords does not match</string>
     <string name="duplicated_username">The selected Username already exist</string>
     <string name="error_generic">Something got wrong. Please try again later</string>
+    <string name="user_already_registered">The selected user already exist in the database, please login</string>
+    <string name="wrong_user_or_password">Username or Password were incorrect</string>
 
     <!-- Confirmation Messages-->
     <string name="registration_successfully">Registration Successfully! Enjoy</string>
