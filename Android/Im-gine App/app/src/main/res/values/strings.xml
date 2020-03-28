@@ -37,4 +37,11 @@
     <!-- Confirmation Messages-->
     <string name="registration_successfully">Registration Successfully! Enjoy</string>
     <string name="welcome">Welcome</string>
+
+    <!-- Layout -->
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_settings">Settings</string>
+    <string name="title_profile">Profile</string>
 </resources>

@@ -133,12 +133,10 @@ public class SignupActivity extends AppCompatActivity {
                         if(task.isSuccessful()){
                             QuerySnapshot document = task.getResult();
                             if(document.isEmpty()){
-                                Log.d("BOSCH:", "The query is empty");
                                 InsertUser();
                             }
                             else{
                                 Toast.makeText(SignupActivity.this, getString(R.string.user_already_registered), Toast.LENGTH_LONG).show();
-                                Log.d("BOSCH:", "The query is not empty");
                                 pd.dismiss();
                             }
                         }else{
@@ -151,13 +149,11 @@ public class SignupActivity extends AppCompatActivity {
 
 
     private void InsertUser(){
-        Log.d("BOSCH:", "start the wring section");
         db.collection(DATABASE_COLLECTION)
                 .add(activeUser)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-                        Log.d("BOSCH:", "write successfully");
                         pd.dismiss();
                         Toast.makeText(SignupActivity.this, getString(R.string.welcome), Toast.LENGTH_LONG).show();
                         Intent it = new Intent(SignupActivity.this, MainActivity.class);
@@ -167,7 +163,6 @@ public class SignupActivity extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.d("BOSCH:", "write not successfully");
                         pd.dismiss();
                         Toast.makeText(SignupActivity.this, getString(R.string.error_generic), Toast.LENGTH_LONG).show();
                     }
