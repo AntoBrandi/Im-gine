@@ -38,7 +38,7 @@ public class SignupActivity extends AppCompatActivity {
     private final String DATABASE_COLLECTION = "users";
 
     // Application variables
-    private String user;
+    private String mail;
     private String pass;
     private String pass_confirm;
     private User activeUser;
@@ -72,19 +72,19 @@ public class SignupActivity extends AppCompatActivity {
         signupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                user = email.getText().toString();
+                mail = email.getText().toString();
                 pass = password.getText().toString();
                 pass_confirm = password_confirmation.getText().toString();
 
                 // check that the password and the password confirmation are the same
                 if(pass.equals(pass_confirm)){
-                    if(user.equals("")){
+                    if(mail.equals("")){
                         email.setError(getString(R.string.blank_mail));
                     }
                     else if(pass.equals("")){
                         password.setError(getString(R.string.blank_password));
                     }
-                    else if(user.length()<5){
+                    else if(mail.length()<5){
                         email.setError(getString(R.string.short_user));
                     }
                     else if(pass.length()<5){
@@ -95,7 +95,7 @@ public class SignupActivity extends AppCompatActivity {
                         // launch a progress dialog that communicates the ongoing actions
                         pd.setMessage(getString(R.string.loading));
                         pd.show();
-                        activeUser = new User(user, pass);
+                        activeUser = new User(mail, pass);
                         // first read from the database if the inserted user already exist
                         TryRegister();
                     }
@@ -125,7 +125,7 @@ public class SignupActivity extends AppCompatActivity {
 
     private void TryRegister(){
         db.collection(DATABASE_COLLECTION)
-                .whereEqualTo("_username", user)
+                .whereEqualTo("_username", mail)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

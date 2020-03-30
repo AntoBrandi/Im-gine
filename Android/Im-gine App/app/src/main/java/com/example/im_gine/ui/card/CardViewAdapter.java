@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.PagerAdapter;
+
+import com.example.im_gine.ChatActivity;
 import com.example.im_gine.MainActivity;
 import com.example.im_gine.R;
 import com.example.im_gine.ui.home.HomeFragment;
@@ -57,9 +59,9 @@ public class CardViewAdapter  extends PagerAdapter {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: when clicked start the chatroom
-                Intent intent = new Intent(context, MainActivity.class);
+                Intent intent = new Intent(context, ChatActivity.class);
                 intent.putExtra("param", models.get(position).getTitle());
+                intent.putExtra("colorId",position);
                 context.startActivity(intent);
             }
         });
