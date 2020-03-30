@@ -2,35 +2,26 @@ package model;
 
 public class User {
     private String _username = "";
-    private String _password = "";
-    private String _chatWith = "";
+    private String _userId = "";
 
-    public User(String username, String password){
+    public User(String userId, String username){
+        this._userId = userId;
         this._username = username;
-        this._password = password;
     }
 
     public void set_username(String _username) {
         this._username = _username;
     }
 
-    public void set_password(String _password) {
-        this._password = _password;
-    }
-
-    public void set_chatWith(String _chatWith) {
-        this._chatWith = _chatWith;
-    }
-
     public String get_username() {
         return _username;
     }
 
-    public String get_password() {
-        return _password;
+    public String get_userId() {
+        return _userId;
     }
 
-    public String get_chatWith() {
-        return _chatWith;
+    public void set_userId(String _userId) {
+        this._userId = _userId;
     }
 }

@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,9 +14,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 import custom_font.MyEditText;
 import custom_font.MyTextView;
 import model.User;
@@ -35,6 +36,7 @@ public class SignupActivity extends AppCompatActivity {
 
     // Firebase Variables
     private FirebaseFirestore db;
+    private FirebaseAuth auth;
     private final String DATABASE_COLLECTION = "users";
 
     // Application variables
@@ -42,7 +44,6 @@ public class SignupActivity extends AppCompatActivity {
     private String pass;
     private String pass_confirm;
     private User activeUser;
-    private boolean IsNewUser = false;
     private ProgressDialog pd;
 
     @Override
@@ -65,6 +66,7 @@ public class SignupActivity extends AppCompatActivity {
         // firebase setup
         Firebase.setAndroidContext(this);
         db = FirebaseFirestore.getInstance();
+        auth = FirebaseAuth.getInstance();
 
 
         // Button click Event Handler
@@ -72,7 +74,7 @@ public class SignupActivity extends AppCompatActivity {
         signupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mail = email.getText().toString();
+                mail = email.getText().toString().toLowerCase();
                 pass = password.getText().toString();
                 pass_confirm = password_confirmation.getText().toString();
 
@@ -95,9 +97,8 @@ public class SignupActivity extends AppCompatActivity {
                         // launch a progress dialog that communicates the ongoing actions
                         pd.setMessage(getString(R.string.loading));
                         pd.show();
-                        activeUser = new User(mail, pass);
                         // first read from the database if the inserted user already exist
-                        TryRegister();
+                        register();
                     }
                 }
                 else{
@@ -122,38 +123,30 @@ public class SignupActivity extends AppCompatActivity {
         });
     }
 
-
-    private void TryRegister(){
-        db.collection(DATABASE_COLLECTION)
-                .whereEqualTo("_username", mail)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+    private void register(){
+        auth.createUserWithEmailAndPassword(mail, pass)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            QuerySnapshot document = task.getResult();
-                            if(document.isEmpty()){
-                                InsertUser();
-                            }
-                            else{
-                                Toast.makeText(SignupActivity.this, getString(R.string.user_already_registered), Toast.LENGTH_LONG).show();
-                                pd.dismiss();
-                            }
+                            FirebaseUser firebaseUser = auth.getCurrentUser();
+                            String userId = auth.getUid();
+                            activeUser = new User(userId, mail);
+                            insertUser();
                         }else{
-                            pd.dismiss();
-                            Toast.makeText(SignupActivity.this, getString(R.string.error_generic), Toast.LENGTH_LONG).show();
+                            Toast.makeText(SignupActivity.this, getString(R.string.error_generic),Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
     }
 
-
-    private void InsertUser(){
+    private void insertUser(){
         db.collection(DATABASE_COLLECTION)
-                .add(activeUser)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                .document(activeUser.get_userId())
+                .set(activeUser)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
-                    public void onSuccess(DocumentReference documentReference) {
+                    public void onComplete(@NonNull Task<Void> task) {
                         pd.dismiss();
                         Toast.makeText(SignupActivity.this, getString(R.string.welcome), Toast.LENGTH_LONG).show();
                         Intent it = new Intent(SignupActivity.this, MainActivity.class);
