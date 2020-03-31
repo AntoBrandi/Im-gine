@@ -1,10 +1,7 @@
 package com.example.im_gine;
 
 import android.content.Intent;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.ShapeDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -22,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.client.Firebase;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -29,9 +27,11 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
-
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import model.Message;
 
@@ -48,6 +48,7 @@ public class ChatActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private FirebaseUser firebaseUser;
     private final String DATABASE_COLLECTION = "messages";
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyyHHmmss");
 
     // adapter
     MessageAdapter messageAdapter;
@@ -107,6 +108,7 @@ public class ChatActivity extends AppCompatActivity {
 
         db.collection(DATABASE_COLLECTION)
                 .whereEqualTo("_topic", topic)
+                .orderBy("_timestamp", Query.Direction.ASCENDING)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
@@ -114,8 +116,11 @@ public class ChatActivity extends AppCompatActivity {
                             Toast.makeText(ChatActivity.this, getString(R.string.error_generic),Toast.LENGTH_SHORT).show();
                         }
                         List<Message> actualMessages = new ArrayList<>();
-                        for (DocumentSnapshot doc : queryDocumentSnapshots){
-                            actualMessages.add(doc.toObject(Message.class));
+                        if(queryDocumentSnapshots!=null){
+
+                            for (DocumentSnapshot doc : queryDocumentSnapshots){
+                                actualMessages.add(doc.toObject(Message.class));
+                            }
                         }
 
                         messages = actualMessages;
@@ -130,7 +135,9 @@ public class ChatActivity extends AppCompatActivity {
             public void onClick(View v) {
                 textMessage = message.getText().toString();
                 if(!textMessage.equals("")){
-                    actualMessage = new Message(firebaseUser.getUid(), topic, textMessage);
+                    Timestamp time = com.google.firebase.Timestamp.now();
+                    long millis = time.getSeconds()*1000 + time.getNanoseconds()/1000000;
+                    actualMessage = new Message(firebaseUser.getUid(), topic, textMessage, dateFormat.format(new Date(millis)).toString());
                     sendMessage();
                 }
                 else{
