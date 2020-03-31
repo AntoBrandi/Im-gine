@@ -1,6 +1,10 @@
 package com.example.im_gine;
 
 import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.ShapeDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -9,31 +13,54 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.client.Firebase;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
 import model.Message;
 
 public class ChatActivity extends AppCompatActivity {
 
+    // application variables
     private Intent i;
     private String topic;
     private int colorId;
-    private ImageButton btnSend;
-    private Toolbar toolbar;
-    private TextView chatTitle;
-    private RelativeLayout messageSection;
-    private EditText message;
     private String textMessage;
     private Message actualMessage;
 
     // Firebase Variables
     private FirebaseFirestore db;
+    private FirebaseUser firebaseUser;
     private final String DATABASE_COLLECTION = "messages";
+
+    // adapter
+    MessageAdapter messageAdapter;
+    List<Message> messages;
+
+    // view related variables
+    private RecyclerView recyclerView;
+    private ImageButton btnSend;
+    private Toolbar toolbar;
+    private TextView chatTitle;
+    private RelativeLayout messageSection;
+    private EditText message;
+    private GradientDrawable shape_right;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +72,13 @@ public class ChatActivity extends AppCompatActivity {
         btnSend = findViewById(R.id.btnSend);
         messageSection = findViewById(R.id.message_section);
         message = findViewById(R.id.text_message);
+        recyclerView = findViewById(R.id.recycler_view);
+        shape_right = (GradientDrawable) ContextCompat.getDrawable(this, R.drawable.message_right);
 
         // firebase setup
         Firebase.setAndroidContext(this);
         db = FirebaseFirestore.getInstance();
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         Integer[] backgroundColors = {
                 R.color.color1,
@@ -61,18 +91,46 @@ public class ChatActivity extends AppCompatActivity {
         colorId = i.getIntExtra("colorId",0);
         topic = i.getStringExtra("param");
 
+        // style setup
         toolbar.setBackgroundColor(getResources().getColor(backgroundColors[colorId]));
         chatTitle.setText(topic);
         messageSection.setBackground(getDrawable(backgroundColors[colorId]));
+        shape_right.setColor(getResources().getColor(backgroundColors[colorId]));
+
+        // recycler view setup
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        linearLayoutManager.setStackFromEnd(true);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        messages = new ArrayList<>();
+
+
+        db.collection(DATABASE_COLLECTION)
+                .whereEqualTo("_topic", topic)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                        if (e!=null){
+                            Toast.makeText(ChatActivity.this, getString(R.string.error_generic),Toast.LENGTH_SHORT).show();
+                        }
+                        List<Message> actualMessages = new ArrayList<>();
+                        for (DocumentSnapshot doc : queryDocumentSnapshots){
+                            actualMessages.add(doc.toObject(Message.class));
+                        }
+
+                        messages = actualMessages;
+                        messageAdapter = new MessageAdapter(ChatActivity.this, messages);
+                        recyclerView.setAdapter(messageAdapter);
+                    }
+                });
+
 
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 textMessage = message.getText().toString();
-                // TODO: take the user from the preferences
-                final String actualUser = "admin";
                 if(!textMessage.equals("")){
-                    actualMessage = new Message(actualUser, topic, textMessage);
+                    actualMessage = new Message(firebaseUser.getUid(), topic, textMessage);
                     sendMessage();
                 }
                 else{

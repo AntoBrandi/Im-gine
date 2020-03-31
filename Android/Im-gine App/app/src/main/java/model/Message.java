@@ -6,6 +6,8 @@ public class Message {
     private String _topic;
     private String _messageText;
 
+    public Message(){}
+
     public Message(String sender, String topic, String messageText){
         this._sender = sender;
         this._topic = topic;

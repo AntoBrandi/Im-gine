@@ -16,8 +16,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
-import model.User;
 
 public class SigninActivity extends AppCompatActivity {
 
@@ -31,13 +29,12 @@ public class SigninActivity extends AppCompatActivity {
 
     // Firebase Variables
     private FirebaseAuth auth;
-    private final String DATABASE_COLLECTION = "users";
 
     // Application variables
     private String mail;
     private String pass;
     private ProgressDialog pd;
-
+    private Intent it;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +46,8 @@ public class SigninActivity extends AppCompatActivity {
         email = (MyEditText)findViewById(R.id.email);
         password = (MyEditText)findViewById(R.id.password);
         loginBtn = (MyTextView)findViewById(R.id.loginBtn);
+
+        it = new Intent(SigninActivity.this, MainActivity.class);
 
         // style related stuffs
         Typeface custom_fonts = Typeface.createFromAsset(getAssets(), "fonts/ArgonPERSONAL-Regular.otf");
@@ -113,7 +112,6 @@ public class SigninActivity extends AppCompatActivity {
                         if(task.isSuccessful()){
                             Toast.makeText(SigninActivity.this, getString(R.string.welcome), Toast.LENGTH_LONG).show();
                             pd.dismiss();
-                            Intent it = new Intent(SigninActivity.this, MainActivity.class);
                             startActivity(it);
                         } else{
                             Toast.makeText(SigninActivity.this, getString(R.string.error_generic), Toast.LENGTH_LONG).show();
