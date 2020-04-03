@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -271,7 +270,6 @@ public class SignupActivity extends AppCompatActivity {
                     });
         }catch (ApiException e){
             Toast.makeText(SignupActivity.this, getString(R.string.error_generic), Toast.LENGTH_LONG).show();
-            Log.d("GOOGLE AUTH", ""+e);
             pd.dismiss();
         }
     }

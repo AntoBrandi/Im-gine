@@ -16,18 +16,5 @@
         android:layout_height="match_parent">
 
     </androidx.viewpager.widget.ViewPager>
-    
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnJoin"
-        android:textColor="@color/colorTextOnSecondary"
-        android:background="@drawable/round_card"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="80dp"
-        android:layout_centerHorizontal="true"
-        android:text="Join"/>
 
 </RelativeLayout>
