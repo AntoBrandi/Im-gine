@@ -4,7 +4,9 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 import android.widget.Toast;
 import custom_font.MyEditText;
@@ -40,6 +42,17 @@ public class SigninActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
+        it = new Intent(SigninActivity.this, MainActivity.class);
+
+
+        // first of all check if the user is already authenticated
+        auth = FirebaseAuth.getInstance();
+        if(auth.getCurrentUser()!=null){
+            startActivity(it);
+        }
+
+
+        // then start the functions
         createBtn = (MyTextView)findViewById(R.id.create);
         title = (TextView)findViewById(R.id.title_textView);
         helpBtn = (MyTextView)findViewById(R.id.help);
@@ -47,16 +60,29 @@ public class SigninActivity extends AppCompatActivity {
         password = (MyEditText)findViewById(R.id.password);
         loginBtn = (MyTextView)findViewById(R.id.loginBtn);
 
-        it = new Intent(SigninActivity.this, MainActivity.class);
 
         // style related stuffs
         Typeface custom_fonts = Typeface.createFromAsset(getAssets(), "fonts/ArgonPERSONAL-Regular.otf");
         title.setTypeface(custom_fonts);
         pd = new ProgressDialog(SigninActivity.this);
 
+
         // firebase setup
         Firebase.setAndroidContext(this);
-        auth = FirebaseAuth.getInstance();
+
+
+        // listener for the edit text
+        password.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if(actionId == EditorInfo.IME_ACTION_SEND){
+                    login();
+                    handled = true;
+                }
+                return handled;
+            }
+        });
 
 
         // Button click Event Handler
@@ -64,26 +90,7 @@ public class SigninActivity extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // get username and password
-                mail = email.getText().toString().toLowerCase();
-                pass = password.getText().toString();
-                // check if the user inserted something in the username and password fields
-                if (mail.equals("") || pass.equals("")){
-                    if(mail.equals("") ){
-                        email.setError(getString(R.string.blank_username));
-                    }
-                    if (pass.equals("")){
-                        password.setError(getString(R.string.blank_password));
-                    }
-                }
-                else{
-                    // send a request to the database to check user login
-                    // launch a progress dialog that communicates the ongoing actions
-                    pd.setMessage(getString(R.string.loading));
-                    pd.show();
-                    // look if the inserted user exist in the database
-                    login();
-                }
+                login();
             }
         });
         // Create new account
@@ -104,21 +111,41 @@ public class SigninActivity extends AppCompatActivity {
         });
     }
 
+
     private void login(){
-        auth.signInWithEmailAndPassword(mail, pass)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(SigninActivity.this, getString(R.string.welcome), Toast.LENGTH_LONG).show();
-                            pd.dismiss();
-                            startActivity(it);
-                        } else{
-                            Toast.makeText(SigninActivity.this, getString(R.string.error_generic), Toast.LENGTH_LONG).show();
-                            pd.dismiss();
+        // get username and password
+        mail = email.getText().toString().toLowerCase();
+        pass = password.getText().toString();
+        // check if the user inserted something in the username and password fields
+        if (mail.equals("") || pass.equals("")){
+            if(mail.equals("") ){
+                email.setError(getString(R.string.blank_username));
+            }
+            if (pass.equals("")){
+                password.setError(getString(R.string.blank_password));
+            }
+        }
+        else{
+            // send a request to the database to check user login
+            // launch a progress dialog that communicates the ongoing actions
+            pd.setMessage(getString(R.string.loading));
+            pd.show();
+            // look if the inserted user exist in the database
+            auth.signInWithEmailAndPassword(mail, pass)
+                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if(task.isSuccessful()){
+                                Toast.makeText(SigninActivity.this, getString(R.string.welcome), Toast.LENGTH_LONG).show();
+                                pd.dismiss();
+                                startActivity(it);
+                            } else{
+                                Toast.makeText(SigninActivity.this, getString(R.string.error_generic), Toast.LENGTH_LONG).show();
+                                pd.dismiss();
+                            }
                         }
-                    }
-                });
+                    });
+        }
     }
 }
 

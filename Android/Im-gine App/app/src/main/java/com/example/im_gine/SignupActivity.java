@@ -4,7 +4,9 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -66,42 +68,26 @@ public class SignupActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
 
+        // listener or the edit text
+        password_confirmation.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if(actionId == EditorInfo.IME_ACTION_SEND){
+                    register();
+                    handled = true;
+                }
+                return handled;
+            }
+        });
+
 
         // Button click Event Handler
         // register in the application
         signupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mail = email.getText().toString().toLowerCase();
-                pass = password.getText().toString();
-                pass_confirm = password_confirmation.getText().toString();
-
-                // check that the password and the password confirmation are the same
-                if(pass.equals(pass_confirm)){
-                    if(mail.equals("")){
-                        email.setError(getString(R.string.blank_mail));
-                    }
-                    else if(pass.equals("")){
-                        password.setError(getString(R.string.blank_password));
-                    }
-                    else if(mail.length()<5){
-                        email.setError(getString(R.string.short_user));
-                    }
-                    else if(pass.length()<5){
-                        password.setError(getString(R.string.short_password));
-                    }
-                    // send the user credential to the server for the registration
-                    else{
-                        // launch a progress dialog that communicates the ongoing actions
-                        pd.setMessage(getString(R.string.loading));
-                        pd.show();
-                        // first read from the database if the inserted user already exist
-                        register();
-                    }
-                }
-                else{
-                    Toast.makeText(SignupActivity.this, getString(R.string.password_not_confirmed), Toast.LENGTH_LONG).show();
-                }
+                register();
             }
         });
         // Move to the signin activity
@@ -122,20 +108,49 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     private void register(){
-        auth.createUserWithEmailAndPassword(mail, pass)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            FirebaseUser firebaseUser = auth.getCurrentUser();
-                            String userId = auth.getUid();
-                            activeUser = new User(userId, mail);
-                            insertUser();
-                        }else{
-                            Toast.makeText(SignupActivity.this, getString(R.string.error_generic),Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+        mail = email.getText().toString().toLowerCase();
+        pass = password.getText().toString();
+        pass_confirm = password_confirmation.getText().toString();
+
+        // check that the password and the password confirmation are the same
+        if(pass.equals(pass_confirm)){
+            if(mail.equals("")){
+                email.setError(getString(R.string.blank_mail));
+            }
+            else if(pass.equals("")){
+                password.setError(getString(R.string.blank_password));
+            }
+            else if(mail.length()<5){
+                email.setError(getString(R.string.short_user));
+            }
+            else if(pass.length()<5){
+                password.setError(getString(R.string.short_password));
+            }
+            // send the user credential to the server for the registration
+            else{
+                // launch a progress dialog that communicates the ongoing actions
+                pd.setMessage(getString(R.string.loading));
+                pd.show();
+                // first read from the database if the inserted user already exist
+                auth.createUserWithEmailAndPassword(mail, pass)
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if(task.isSuccessful()){
+                                    FirebaseUser firebaseUser = auth.getCurrentUser();
+                                    String userId = auth.getUid();
+                                    activeUser = new User(userId, mail);
+                                    insertUser();
+                                }else{
+                                    Toast.makeText(SignupActivity.this, getString(R.string.error_generic),Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+            }
+        }
+        else{
+            Toast.makeText(SignupActivity.this, getString(R.string.password_not_confirmed), Toast.LENGTH_LONG).show();
+        }
     }
 
     private void insertUser(){

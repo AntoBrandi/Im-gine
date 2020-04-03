@@ -60,6 +60,7 @@
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 android:drawablePadding="10dp"
+                android:inputType="textEmailAddress"
                 android:textSize="13dp"
                 android:id="@+id/email"
                 />
@@ -94,6 +95,7 @@
                 android:inputType="textPassword"
                 android:textColorHint="@color/white"
                 android:textColor="@color/white"
+                android:imeOptions="actionSend"
                 android:textSize="13dp"
                 android:layout_weight="1"
                 android:id="@+id/password"
