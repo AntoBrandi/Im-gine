@@ -1,5 +1,12 @@
 <resources>
-    <!-- Default Messages-->
+    <!--- UI related strings -->
+    <!-- Navigation Bar -->
+    <string name="title_home">Home</string>
+    <string name="title_chat">Chat</string>
+    <string name="title_addContent">Add</string>
+    <string name="title_settings">Settings</string>
+    <string name="title_profile">Profile</string>
+    <!-- Signin and Signup -->
     <string name="app_name">Imagine</string>
     <string name="hint_password">Password</string>
     <string name="hint_confirmPassword">Confirm Password</string>
@@ -39,14 +46,8 @@
     <string name="registration_successfully">Registration Successfully! Enjoy</string>
     <string name="welcome">Welcome</string>
 
-    <!-- Layout -->
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
-    <string name="title_settings">Settings</string>
-    <string name="title_profile">Profile</string>
 
-    <!--  login strings -->
+    <!--  Utilities strings -->
     <string name="facebook_app_id">1393982230779520</string>
     <string name="fb_login_protocol_scheme">fb1393982230779520</string>
 
