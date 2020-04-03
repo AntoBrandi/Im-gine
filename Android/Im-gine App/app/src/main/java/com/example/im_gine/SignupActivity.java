@@ -10,18 +10,29 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.firebase.client.Firebase;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import custom_font.MyEditText;
 import custom_font.MyTextView;
 import model.User;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -37,14 +48,19 @@ public class SignupActivity extends AppCompatActivity {
     // Firebase Variables
     private FirebaseFirestore db;
     private FirebaseAuth auth;
+    private FirebaseUser firebaseUser;
     private final String DATABASE_COLLECTION = "users";
 
     // Application variables
     private String mail;
     private String pass;
     private String pass_confirm;
-    private User activeUser;
     private ProgressDialog pd;
+    private Intent it;
+
+    // Facebook Login
+    private CallbackManager callbackManager;
+    private LoginButton facebookLoginButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,17 +73,27 @@ public class SignupActivity extends AppCompatActivity {
         email = (MyEditText)findViewById(R.id.email);
         password = (MyEditText)findViewById(R.id.password);
         password_confirmation = (MyEditText)findViewById(R.id.password_confirmation);
+        facebookLoginButton = (LoginButton) findViewById(R.id.facebook_login_button);
 
         // style related stuffs
         Typeface custom_fonts = Typeface.createFromAsset(getAssets(), "fonts/ArgonPERSONAL-Regular.otf");
         title.setTypeface(custom_fonts);
         pd = new ProgressDialog(SignupActivity.this);
+        pd.setMessage(getString(R.string.loading));
+        it = new Intent(SignupActivity.this, MainActivity.class);
 
         // firebase setup
         Firebase.setAndroidContext(this);
         db = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
 
+        // facebook setup
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
+        callbackManager = CallbackManager.Factory.create();
+
+
+        // Button click Event Handler
         // listener or the edit text
         password_confirmation.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -80,9 +106,6 @@ public class SignupActivity extends AppCompatActivity {
                 return handled;
             }
         });
-
-
-        // Button click Event Handler
         // register in the application
         signupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,6 +128,31 @@ public class SignupActivity extends AppCompatActivity {
                 // TODO: help page
             }
         });
+        // login with facebook
+        facebookLoginButton.setReadPermissions("email","public_profile");
+        facebookLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                pd.show();
+                handleFacebookToken(loginResult.getAccessToken());
+            }
+
+            @Override
+            public void onCancel() {
+                Toast.makeText(SignupActivity.this, getString(R.string.error_generic),Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Toast.makeText(SignupActivity.this, getString(R.string.error_generic),Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void register(){
@@ -129,7 +177,6 @@ public class SignupActivity extends AppCompatActivity {
             // send the user credential to the server for the registration
             else{
                 // launch a progress dialog that communicates the ongoing actions
-                pd.setMessage(getString(R.string.loading));
                 pd.show();
                 // first read from the database if the inserted user already exist
                 auth.createUserWithEmailAndPassword(mail, pass)
@@ -137,12 +184,11 @@ public class SignupActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if(task.isSuccessful()){
-                                    FirebaseUser firebaseUser = auth.getCurrentUser();
-                                    String userId = auth.getUid();
-                                    activeUser = new User(userId, mail);
-                                    insertUser();
+                                    firebaseUser = auth.getCurrentUser();
+                                    insertUser(firebaseUser);
                                 }else{
                                     Toast.makeText(SignupActivity.this, getString(R.string.error_generic),Toast.LENGTH_SHORT).show();
+                                    pd.dismiss();
                                 }
                             }
                         });
@@ -153,16 +199,33 @@ public class SignupActivity extends AppCompatActivity {
         }
     }
 
-    private void insertUser(){
+    private void handleFacebookToken(AccessToken token) {
+        AuthCredential credential= FacebookAuthProvider.getCredential(token.getToken());
+        auth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            firebaseUser = auth.getCurrentUser();
+                            insertUser(firebaseUser);
+                        }else{
+                            Toast.makeText(SignupActivity.this, getString(R.string.error_generic),Toast.LENGTH_SHORT).show();
+                            pd.dismiss();
+                        }
+                    }
+                });
+    }
+
+    private void insertUser(FirebaseUser user){
+        // TODO: valutare se inserire direttamente il firebase user o solo le info utili
         db.collection(DATABASE_COLLECTION)
-                .document(activeUser.get_userId())
-                .set(activeUser)
+                .document(firebaseUser.getUid())
+                .set(firebaseUser)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         pd.dismiss();
                         Toast.makeText(SignupActivity.this, getString(R.string.welcome), Toast.LENGTH_LONG).show();
-                        Intent it = new Intent(SignupActivity.this, MainActivity.class);
                         startActivity(it);
                     }
                 })

@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/wfr_1_blur">
+    android:background="@drawable/wfr_1_blur"
+    tools:context=".SignupActivity">
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,6 +28,7 @@
         android:gravity="center"
 
         />
+
     <custom_font.MyTextView
         android:layout_above="@+id/main"
         android:layout_width="match_parent"
@@ -35,7 +37,7 @@
         android:gravity="center"
         android:textColor="@color/white"
         android:textSize="20dp"
-        android:layout_marginBottom="50dp"/>
+        android:layout_marginBottom="30dp"/>
 
     <LinearLayout
         android:id="@+id/main"
@@ -158,6 +160,30 @@
             android:layout_marginRight="30dp"
             android:layout_marginBottom="20dp"
             android:layout_marginTop="10dp"/>
+
+        <custom_font.MyTextView
+            android:layout_above="@+id/main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/login_with"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:layout_marginBottom="20dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp">
+
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/facebook_login_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"/>
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/bottom"

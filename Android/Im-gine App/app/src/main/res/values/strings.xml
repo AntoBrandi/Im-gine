@@ -7,11 +7,12 @@
     <string name="hint_username">Username</string>
     <string name="signin_button">Login</string>
     <string name="signup_button">Signup</string>
-    <string name="signing_create">Create Account</string>
+    <string name="signing_create">Create an Account</string>
     <string name="signin_help">Need Help ?</string>
-    <string name="signup_title">Create Account</string>
+    <string name="signup_title">Create an Account</string>
     <string name="signup_login">Signin</string>
     <string name="signup_help">Need Help ?</string>
+    <string name="login_with">Or</string>
 
     <!-- Error Messages-->
     <string name="blank_username">Username can\'t be blank</string>
@@ -44,4 +45,9 @@
     <string name="title_notifications">Notifications</string>
     <string name="title_settings">Settings</string>
     <string name="title_profile">Profile</string>
+
+    <!--  login strings -->
+    <string name="facebook_app_id">1393982230779520</string>
+    <string name="fb_login_protocol_scheme">fb1393982230779520</string>
+
 </resources>
