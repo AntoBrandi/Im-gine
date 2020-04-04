@@ -6,6 +6,10 @@
     <string name="title_addContent">Add</string>
     <string name="title_settings">Settings</string>
     <string name="title_profile">Profile</string>
+    <!-- Post Menu -->
+    <string name="title_share">Share</string>
+    <string name="title_report">Report</string>
+    <string name="title_copy">Copy Link</string>
     <!-- Signin and Signup -->
     <string name="app_name">Imagine</string>
     <string name="hint_password">Password</string>

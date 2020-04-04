@@ -1,38 +1,80 @@
-package com.example.im_gine.ui.card;
+package com.example.im_gine.ui.MainActivity.card;
 
 public class CardView {
 
-    private int image;
-    private String title;
-    private String desc;
 
-    public CardView(int image, String title, String desc) {
-        this.image = image;
-        this.title = title;
-        this.desc = desc;
+    private int profile_image;
+    private String profile_username;
+    private int shared_image;
+    private String shared_text;
+    private int post_views;
+    private int post_messages;
+    private int post_shares;
+
+    public CardView(int shared_image, String shared_text, int profile_image, String profile_username, int post_views, int post_messages, int post_shares) {
+        this.shared_image = shared_image;
+        this.shared_text = shared_text;
+        this.profile_image = profile_image;
+        this.profile_username = profile_username;
+        this.post_views = post_views;
+        this.post_messages = post_messages;
+        this.post_shares = post_shares;
     }
 
-    public int getImage() {
-        return image;
+    public String getShared_text() {
+        return shared_text;
     }
 
-    public void setImage(int image) {
-        this.image = image;
+    public void setShared_text(String shared_text) {
+        this.shared_text = shared_text;
     }
 
-    public String getTitle() {
-        return title;
+    public int getPost_views() {
+        return post_views;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setPost_views(int post_views) {
+        this.post_views = post_views;
     }
 
-    public String getDesc() {
-        return desc;
+    public int getPost_messages() {
+        return post_messages;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setPost_messages(int post_messages) {
+        this.post_messages = post_messages;
     }
+
+    public int getPost_shares() {
+        return post_shares;
+    }
+
+    public void setPost_shares(int post_shares) {
+        this.post_shares = post_shares;
+    }
+
+    public int getShared_image() {
+        return shared_image;
+    }
+
+    public void setShared_image(int shared_image) {
+        this.shared_image = shared_image;
+    }
+
+    public int getProfile_image() {
+        return profile_image;
+    }
+
+    public void setProfile_image(int profile_image) {
+        this.profile_image = profile_image;
+    }
+
+    public String getProfile_username() {
+        return profile_username;
+    }
+
+    public void setProfile_username(String profile_username) {
+        this.profile_username = profile_username;
+    }
+
 }
