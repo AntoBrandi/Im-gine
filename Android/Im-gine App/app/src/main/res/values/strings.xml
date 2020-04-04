@@ -6,20 +6,25 @@
     <string name="title_addContent">Add</string>
     <string name="title_settings">Settings</string>
     <string name="title_profile">Profile</string>
+    <string name="title_login">Login</string>
     <!-- Post Menu -->
     <string name="title_share">Share</string>
     <string name="title_report">Report</string>
     <string name="title_copy">Copy Link</string>
     <!-- Signin and Signup -->
+    <string name="signin">Login with your Account</string>
+    <string name="signup">Or Register a new Account</string>
     <string name="app_name">Imagine</string>
-    <string name="hint_password">Password</string>
-    <string name="hint_confirmPassword">Confirm Password</string>
-    <string name="hint_email">Email Address</string>
-    <string name="hint_username">Username</string>
     <string name="signin_button">Login</string>
-    <string name="signup_button">Signup</string>
-    <string name="signing_create">Create an Account</string>
+    <string name="signup_button">Register</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_email">Email Address</string>
     <string name="signin_help">Need Help ?</string>
+
+
+    <string name="hint_confirmPassword">Confirm Password</string>
+    <string name="hint_username">Username</string>
+
     <string name="signup_title">Create an Account</string>
     <string name="signup_login">Signin</string>
     <string name="signup_help">Need Help ?</string>

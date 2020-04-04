@@ -24,7 +24,6 @@ public class SigninActivity extends AppCompatActivity {
 
     // View variables
     private TextView title;
-    private MyTextView createBtn;
     private MyTextView helpBtn;
     private MyEditText email;
     private MyEditText password;
@@ -54,7 +53,6 @@ public class SigninActivity extends AppCompatActivity {
 
 
         // then start the functions
-        createBtn = (MyTextView)findViewById(R.id.create);
         title = (TextView)findViewById(R.id.title_textView);
         helpBtn = (MyTextView)findViewById(R.id.help);
         email = (MyEditText)findViewById(R.id.email);
@@ -92,15 +90,6 @@ public class SigninActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 login();
-            }
-        });
-        // Create new account
-        createBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent it = new Intent(SigninActivity.this,SignupActivity.class);
-                startActivity(it);
             }
         });
         // Go to the help page

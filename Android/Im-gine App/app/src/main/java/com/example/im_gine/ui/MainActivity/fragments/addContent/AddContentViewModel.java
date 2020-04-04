@@ -10,7 +10,7 @@ public class AddContentViewModel extends ViewModel {
 
     public AddContentViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is profile fragment");
+        mText.setValue("This is add content fragment");
     }
 
     public LiveData<String> getText() {

@@ -125,13 +125,6 @@
             android:padding="16dp">
 
             <custom_font.MyTextView
-                android:id="@+id/create"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/signing_create"
-                android:textColor="@color/white"/>
-            <custom_font.MyTextView
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
