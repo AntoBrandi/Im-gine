@@ -44,6 +44,7 @@
             app:cardCornerRadius="14dp"
             android:layout_below="@id/header"
             android:elevation="12dp"
+            android:id="@+id/login_cardView"
             android:layout_marginTop="-16dp"
             android:layout_marginRight="16dp"
             android:layout_marginLeft="16dp"
@@ -90,7 +91,7 @@
                     android:text="@string/signin_password"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
-                    android:layout_marginTop="32dp"
+                    android:layout_marginTop="16dp"
                     android:textSize="14sp"
                     android:id="@+id/password_title"
                     android:textColor="@color/login_medium"/>
@@ -141,6 +142,171 @@
                     android:textColor="@color/login_medium"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="32dp"/>
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="14dp"
+            android:layout_below="@id/header"
+            android:elevation="24dp"
+            android:layout_marginTop="-16dp"
+            android:id="@+id/register_cardView"
+            android:visibility="gone"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/signup_title"
+                    android:textAllCaps="true"
+                    android:id="@+id/signup_title"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="16dp"
+                    android:textColor="@color/login_primary"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/signup_title"
+                    android:text="@string/signin_email"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:textSize="14sp"
+                    android:id="@+id/register_email_title"
+                    android:textColor="@color/login_medium"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/register_email_title"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:hint="@string/hint_email"
+                    android:id="@+id/register_email"
+                    android:backgroundTint="@color/login_medium"/>
+                <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/register_email"
+                android:text="@string/signin_password"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                android:textSize="14sp"
+                android:id="@+id/register_password_title"
+                android:textColor="@color/login_medium"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/register_password_title"
+                    android:layout_marginLeft="16dp"
+                    android:id="@+id/register_password"
+                    android:layout_marginRight="16dp"
+                    android:hint="@string/hint_password"
+                    android:backgroundTint="@color/login_medium"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/register_password"
+                    android:text="@string/signup_password_confirmation"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="16dp"
+                    android:textSize="14sp"
+                    android:id="@+id/register_password_confirmation_title"
+                    android:textColor="@color/login_medium"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/register_password_confirmation_title"
+                    android:layout_marginLeft="16dp"
+                    android:id="@+id/register_password_confirmation"
+                    android:layout_marginRight="16dp"
+                    android:hint="@string/hint_confirmPassword"
+                    android:backgroundTint="@color/login_medium"/>
+
+                <custom_font.MyTextView
+                    android:id="@+id/registerBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/round_gradient"
+                    android:text="@string/signup_button"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/white"
+                    android:textAllCaps="true"
+                    android:layout_below="@id/register_password_confirmation"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginRight="60dp"
+                    android:layout_marginTop="24dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="16dp"
+                    android:id="@+id/social_signup"
+                    android:layout_below="@id/registerBtn"
+                    android:gravity="center">
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="16dp"
+                        android:elevation="12dp">
+
+                    <com.facebook.login.widget.LoginButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:id="@+id/facebook_login_button"/>
+
+                        <ImageButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/facebook_login"
+                            android:src="@drawable/com_facebook_button_icon_blue"/>
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:elevation="12dp">
+
+                        <com.facebook.login.widget.LoginButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone"
+                            android:id="@+id/google_login_button"/>
+
+                        <ImageButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/google_login"
+                            android:src="@drawable/googleg_standard_color_18"/>
+                    </FrameLayout>
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/social_signup"
+                    android:id="@+id/signinBtn"
+                    android:text="@string/signup_existingAccount"
+                    android:textColor="@color/login_medium"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="16dp"/>
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
     </RelativeLayout>

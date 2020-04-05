@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -34,6 +35,8 @@ public class LoginFragment extends Fragment {
     private MyTextView loginBtn;
     private TextView registerBtn;
     private TextView passwordLost;
+    private CardView loginCardView;
+    private CardView registerCardView;
 
     // Application variables
     private String mail;
@@ -50,6 +53,8 @@ public class LoginFragment extends Fragment {
         loginBtn = (MyTextView)view.findViewById(R.id.loginBtn);
         registerBtn = (TextView)view.findViewById(R.id.signupBtn);
         passwordLost = (TextView)view.findViewById(R.id.password_lost);
+        loginCardView = (CardView) view.findViewById(R.id.login_cardView);
+        registerCardView = (CardView) view.findViewById(R.id.register_cardView);
 
         pd = new ProgressDialog(getContext());
         auth = FirebaseAuth.getInstance();
@@ -79,7 +84,8 @@ public class LoginFragment extends Fragment {
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                register();
+                registerCardView.setVisibility(View.VISIBLE);
+                loginCardView.setVisibility(View.GONE);
             }
         });
 
