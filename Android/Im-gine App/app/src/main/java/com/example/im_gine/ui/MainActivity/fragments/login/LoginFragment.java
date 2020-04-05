@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -15,14 +16,12 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-
 import com.example.im_gine.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import custom_font.MyEditText;
 import custom_font.MyTextView;
 
 public class LoginFragment extends Fragment {
@@ -30,11 +29,11 @@ public class LoginFragment extends Fragment {
     // UI variables
     private LoginViewModel loginViewModel;
     private ProgressDialog pd;
-    private MyTextView helpBtn;
-    private MyEditText email;
-    private MyEditText password;
+    private EditText email;
+    private EditText password;
     private MyTextView loginBtn;
-    private MyTextView registerBtn;
+    private TextView registerBtn;
+    private TextView passwordLost;
 
     // Application variables
     private String mail;
@@ -46,11 +45,11 @@ public class LoginFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
         View view = inflater.inflate(R.layout.fragment_login, container, false);
-        helpBtn = (MyTextView)view.findViewById(R.id.help);
-        email = (MyEditText)view.findViewById(R.id.email);
-        password = (MyEditText)view.findViewById(R.id.password);
+        email = (EditText)view.findViewById(R.id.email);
+        password = (EditText)view.findViewById(R.id.password);
         loginBtn = (MyTextView)view.findViewById(R.id.loginBtn);
-        registerBtn = (MyTextView)view.findViewById(R.id.signupBtn);
+        registerBtn = (TextView)view.findViewById(R.id.signupBtn);
+        passwordLost = (TextView)view.findViewById(R.id.password_lost);
 
         pd = new ProgressDialog(getContext());
         auth = FirebaseAuth.getInstance();
@@ -84,11 +83,11 @@ public class LoginFragment extends Fragment {
             }
         });
 
-        // listener for the help page button
-        helpBtn.setOnClickListener(new View.OnClickListener() {
+        // listener for the password lost button
+        passwordLost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: help page
+                // TODO: open page for the password reset
             }
         });
 
@@ -102,7 +101,9 @@ public class LoginFragment extends Fragment {
                     navController.navigate(R.id.navigation_profile);
                 }
                 else{
-                    Snackbar.make(root, R.string.invalid_credentials, Snackbar.LENGTH_SHORT).show();
+                    if(!loginViewModel.isFirstTime.getValue()){
+                        Snackbar.make(root, R.string.invalid_credentials, Snackbar.LENGTH_SHORT).show();
+                    }
                 }
             }
         });

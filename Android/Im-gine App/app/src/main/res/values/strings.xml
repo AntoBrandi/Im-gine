@@ -20,10 +20,13 @@
     <string name="hint_password">Password</string>
     <string name="hint_email">Email Address</string>
     <string name="signin_help">Need Help ?</string>
-
-
+    <string name="signin_title">Login</string>
+    <string name="signin_email">Email</string>
+    <string name="signin_password">Password</string>
     <string name="hint_confirmPassword">Confirm Password</string>
     <string name="hint_username">Username</string>
+    <string name="signin_lostPassword">Forgot your password?</string>
+    <string name="signin_createAccount">Don\'t have an account? Sign up</string>
 
     <string name="signup_title">Create an Account</string>
     <string name="signup_login">Signin</string>

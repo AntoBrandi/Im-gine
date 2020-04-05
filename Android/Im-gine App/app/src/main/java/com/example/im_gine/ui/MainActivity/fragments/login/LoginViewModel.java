@@ -8,8 +8,10 @@ public class LoginViewModel extends ViewModel {
 
     private MutableLiveData<FirebaseAuth> mAuth = new MutableLiveData<>();
     public final MutableLiveData<Boolean> authStatus = new MutableLiveData<>();
+    public final MutableLiveData<Boolean> isFirstTime = new MutableLiveData<>();
 
     public LoginViewModel() {
+        isFirstTime.setValue(true);
         mAuth.setValue(FirebaseAuth.getInstance());
         if (mAuth.getValue().getCurrentUser()!=null){
             authStatus.setValue(true);
@@ -20,10 +22,12 @@ public class LoginViewModel extends ViewModel {
     }
 
     public void authenticationSuccessful(){
+        this.isFirstTime.setValue(false);
         this.authStatus.setValue(true);
     }
 
     public void authenticationFailed(){
+        this.isFirstTime.setValue(false);
         this.authStatus.setValue(false);
     }
 

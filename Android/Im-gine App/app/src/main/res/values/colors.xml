@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#009a9a</color>
-    <color name="colorPrimaryDark">#006a6b</color>
-    <color name="colorPrimaryLight">#54caca</color>
-    <color name="colorSecondary">#ab47bc</color>
-    <color name="colorSecondaryDark">#790e8b</color>
-    <color name="colorSecondaryLight">#df78ef</color>
+    <color name="colorPrimary">#08affc</color>
+    <color name="colorPrimaryDark">#3793fc</color>
+    <color name="colorPrimaryLight">#09f6ea</color>
+    <color name="colorSecondary">#6858e1</color>
+    <color name="colorSecondaryDark">#7838f8</color>
+    <color name="colorSecondaryLight">#a14afe</color>
     <color name="colorTextOnPrimary">#000000</color>
     <color name="colorTextOnSecondary">#ffffff</color>
     <color name="white">#FFFFFF</color>
@@ -13,4 +13,8 @@
     <color name="color2">#d27855</color>
     <color name="color3">#abc1cc</color>
     <color name="color4">#C51E66</color>
+    <color name="login_primary">#3793fc</color>
+    <color name="login_light">#00f4e4</color>
+    <color name="login_dark">#6858e1</color>
+    <color name="login_medium">#08affc</color>
 </resources>
