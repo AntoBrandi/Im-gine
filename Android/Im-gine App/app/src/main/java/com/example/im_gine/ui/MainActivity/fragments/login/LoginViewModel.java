@@ -13,7 +13,6 @@ public class LoginViewModel extends ViewModel {
     private MutableLiveData<FirebaseAuth> mAuth = new MutableLiveData<>();
     public final MutableLiveData<Boolean> authStatus = new MutableLiveData<>();
     public final MutableLiveData<Boolean> isFirstTime = new MutableLiveData<>();
-    public final MutableLiveData<ResultActivity> activityResult = new MutableLiveData<>();
 
     public LoginViewModel() {
         isFirstTime.setValue(true);

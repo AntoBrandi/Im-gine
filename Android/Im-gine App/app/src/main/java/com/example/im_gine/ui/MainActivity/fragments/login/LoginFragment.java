@@ -38,6 +38,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -47,6 +48,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.firestore.FirebaseFirestore;
 import custom_font.MyTextView;
 import model.ResultActivity;
@@ -97,6 +99,7 @@ public class LoginFragment extends Fragment {
     private CallbackManager callbackManager;
     private GoogleSignInClient googleSignInClient;
     private static final int RC_GOOGLE_SIGNIN = 1;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
@@ -213,14 +216,6 @@ public class LoginFragment extends Fragment {
             }
         });
 
-        loginViewModel.activityResult.observe(getViewLifecycleOwner(), new Observer<ResultActivity>() {
-            @Override
-            public void onChanged(ResultActivity resultActivity) {
-                Log.d("LOGINFRAGMENT","Entered in the on ativity result");
-                callbackManager.onActivityResult(resultActivity.getRequestCode(), resultActivity.getResultCode(), resultActivity.getData());
-            }
-        });
-
         // facebook login
         FacebookSdk.sdkInitialize(getActivity());
         AppEventsLogger.activateApp(getActivity());
@@ -235,7 +230,6 @@ public class LoginFragment extends Fragment {
         facebookLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Log.d("BOSCH", "all good");
                 pd.show();
                 handleFacebookToken(loginResult.getAccessToken());
             }
@@ -244,20 +238,33 @@ public class LoginFragment extends Fragment {
             public void onCancel() {
                 Toast.makeText(getContext(), getString(R.string.error_generic),Toast.LENGTH_SHORT).show();
                 loginViewModel.authenticationFailed();
-                Log.d("BOSCH", "cancellation occurred");
             }
 
             @Override
             public void onError(FacebookException error) {
                 Toast.makeText(getContext(), getString(R.string.error_generic),Toast.LENGTH_SHORT).show();
                 loginViewModel.authenticationFailed();
-                Log.d("BOSCH", "error occurred");
             }
         });
 
+        // google login
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        googleSignInClient = GoogleSignIn.getClient(getContext(), gso);
+        googleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("BOSCH","clicked");
+                Intent signInIntent = googleSignInClient.getSignInIntent();
+                startActivityForResult(signInIntent, RC_GOOGLE_SIGNIN);
+            }
+        });
 
         return view;
     }
+
 
     private void login(){
         // get username and password
@@ -295,6 +302,7 @@ public class LoginFragment extends Fragment {
                     });
         }
     }
+
 
     private void register(){
         register_mail = register_email.getText().toString().toLowerCase();
@@ -342,6 +350,7 @@ public class LoginFragment extends Fragment {
         }
     }
 
+
     private void insertUser(FirebaseUser user){
         User actualUser = new User(firebaseUser.getUid(), firebaseUser.getEmail());
         db.collection(DATABASE_COLLECTION)
@@ -363,6 +372,7 @@ public class LoginFragment extends Fragment {
                 });
     }
 
+
     private void handleFacebookToken(AccessToken token) {
         AuthCredential credential= FacebookAuthProvider.getCredential(token.getToken());
         auth.signInWithCredential(credential)
@@ -382,9 +392,43 @@ public class LoginFragment extends Fragment {
                 });
     }
 
+
+    private void handleGoogleToken(Task<GoogleSignInAccount> completedTask){
+        try{
+            pd.show();
+            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(),null);
+            auth.signInWithCredential(credential)
+                    .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if(task.isSuccessful()){
+                                firebaseUser = auth.getCurrentUser();
+                                loginViewModel.authenticationSuccessful();
+                                insertUser(firebaseUser);
+                            }
+                            else{
+                                Toast.makeText(getContext(), getString(R.string.error_generic), Toast.LENGTH_LONG).show();
+                                loginViewModel.authenticationFailed();
+                                pd.dismiss();
+                            }
+                        }
+                    });
+        }catch (ApiException e){
+            Toast.makeText(getContext(), getString(R.string.error_generic), Toast.LENGTH_LONG).show();
+            pd.dismiss();
+        }
+    }
+
+
     @Override
     public void onActivityResult(final int requestCode, final int resultCode, @Nullable Intent data) {
         Log.d("LOGINFRAGMENT","Entered in the on ativity result");
-        callbackManager.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == RC_GOOGLE_SIGNIN){
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleGoogleToken(task);
+        } else{
+            callbackManager.onActivityResult(requestCode, resultCode, data);
+        }
     }
 }
