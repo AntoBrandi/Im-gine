@@ -2,9 +2,6 @@ package com.example.im_gine;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-
-import com.example.im_gine.ui.MainActivity.fragments.login.LoginFragment;
 import com.example.im_gine.ui.MainActivity.fragments.login.LoginViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,11 +9,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-
-import model.ResultActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -46,11 +40,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d("MAINACTIVITYRESULT", "triggered the section");
         Fragment navHostFragment = getSupportFragmentManager().getPrimaryNavigationFragment();
         Fragment fragment = navHostFragment.getChildFragmentManager().getFragments().get(0);
         fragment.onActivityResult(requestCode, resultCode, data);
-//        LoginFragment loginFragment = new LoginFragment();
-//        loginFragment.onActivityResult(requestCode, resultCode, data);
     }
 }

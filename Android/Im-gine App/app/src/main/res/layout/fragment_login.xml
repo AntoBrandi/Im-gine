@@ -20,7 +20,7 @@
             app:layout_constraintTop_toTopOf="parent">
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="134dp"
+                android:layout_height="120dp"
                 android:src="@drawable/login_bkg"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
@@ -44,6 +44,7 @@
             app:cardCornerRadius="14dp"
             android:layout_below="@id/header"
             android:elevation="12dp"
+            android:visibility="gone"
             android:id="@+id/login_cardView"
             android:layout_marginTop="-16dp"
             android:layout_marginRight="16dp"
@@ -155,8 +156,8 @@
             android:layout_below="@id/header"
             android:elevation="24dp"
             android:layout_marginTop="-16dp"
+            android:layout_marginBottom="16dp"
             android:id="@+id/register_cardView"
-            android:visibility="gone"
             android:layout_marginRight="16dp"
             android:layout_marginLeft="16dp"
             app:layout_constraintStart_toStartOf="parent"

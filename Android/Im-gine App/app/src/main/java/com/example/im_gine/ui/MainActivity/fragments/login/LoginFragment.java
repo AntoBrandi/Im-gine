@@ -1,11 +1,9 @@
 package com.example.im_gine.ui.MainActivity.fragments.login;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +22,6 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import com.example.im_gine.R;
-import com.example.im_gine.SignupActivity;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -37,7 +34,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -51,9 +47,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.firestore.FirebaseFirestore;
 import custom_font.MyTextView;
-import model.ResultActivity;
 import model.User;
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class LoginFragment extends Fragment {
 
@@ -75,7 +69,6 @@ public class LoginFragment extends Fragment {
     private MyTextView register_registerBtn;
     private TextView register_loginBtn;
     private LoginButton facebookLoginButton;
-    private SignInButton googleLoginButton;
     private ImageButton facebookButton;
     private ImageButton googleButton;
 
@@ -121,13 +114,14 @@ public class LoginFragment extends Fragment {
         register_loginBtn = (TextView) view.findViewById(R.id.signinBtn);
         facebookLoginButton = (LoginButton) view.findViewById(R.id.facebook_login_button);
         facebookButton = (ImageButton) view.findViewById(R.id.facebook_button);
-        googleLoginButton = (SignInButton) view.findViewById(R.id.google_login_button);
         googleButton = (ImageButton) view.findViewById(R.id.google_button);
 
 
         // UI related settings
+        // displays the title with a nice font
         Typeface custom_fonts = Typeface.createFromAsset(getActivity().getAssets(), "fonts/ArgonPERSONAL-Regular.otf");
         appName.setTypeface(custom_fonts);
+        // prepare the dialog for the visualization
         pd = new ProgressDialog(getContext());
 
 
@@ -137,6 +131,7 @@ public class LoginFragment extends Fragment {
 
 
         // listener for the password edit Text
+        // set the confirmation button of this edit text able to throw a login event
         login_password.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -148,6 +143,7 @@ public class LoginFragment extends Fragment {
                 return handled;
             }
         });
+        // set the confirmation button of this edit text able to throw a register event
         register_password_confirmation.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -167,6 +163,7 @@ public class LoginFragment extends Fragment {
                 login();
             }
         });
+        // navigate from the register CardView to the login CardView
         register_loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -176,6 +173,7 @@ public class LoginFragment extends Fragment {
         });
 
         // listener for the register button
+        // navigate from the login CardView to the register CardView
         login_registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -200,6 +198,7 @@ public class LoginFragment extends Fragment {
         });
 
         // listener for the authStatus variable
+        // observe a variable belonging to the class view model, and when a new status is detected throw this event
         final NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
         final View root = view;
         loginViewModel.authStatus.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
@@ -256,7 +255,6 @@ public class LoginFragment extends Fragment {
         googleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("BOSCH","clicked");
                 Intent signInIntent = googleSignInClient.getSignInIntent();
                 startActivityForResult(signInIntent, RC_GOOGLE_SIGNIN);
             }
@@ -266,6 +264,16 @@ public class LoginFragment extends Fragment {
     }
 
 
+    /*
+    Function that gets called when the user clicks on the login button in the login CardView
+
+    1 - Check that the insertet username and password are not empty
+    2 - Show a progress dialog while waiting for the auth result
+    3 - Send an auth request to the Google Firebase with the given username and password
+    4 - Add a listener to the result coming from the server
+    5 - If the result is successful, dismiss the progress dialog and update the value of the variable auth to true in the loginViewModel
+    6 - If the result s not successful, dismiss the progress dialog and update the value of the variable auth to false in the loginViewModel
+     */
     private void login(){
         // get username and password
         mail = login_email.getText().toString().toLowerCase();
@@ -304,6 +312,18 @@ public class LoginFragment extends Fragment {
     }
 
 
+    /*
+    Function that gets called when the user clicks on the register button in the register CardView
+
+    1 - Check if the username and password editText are not empty
+    2 - Check that the password and the username respect the security requirements
+    3 - Check that the password and the password onfimation are the same
+    4 - Show a progress dialog while waiting for the auth result
+    5 - Send an auth request to the Google Firebase with the given username and password
+    6 - Add a listener to the result coming from the server
+    7 - If the result is successful, dismiss the progress dialog and update the value of the variable auth to true in the loginViewModel
+    8 - If the result s not successful, dismiss the progress dialog and update the value of the variable auth to false in the loginViewModel
+     */
     private void register(){
         register_mail = register_email.getText().toString().toLowerCase();
         register_pass = register_password.getText().toString();
@@ -326,6 +346,7 @@ public class LoginFragment extends Fragment {
             // send the user credential to the server for the registration
             else{
                 // launch a progress dialog that communicates the ongoing actions
+                pd.setMessage(getString(R.string.loading));
                 pd.show();
                 // first read from the database if the inserted user already exist
                 auth.createUserWithEmailAndPassword(register_mail, register_pass)
@@ -351,6 +372,16 @@ public class LoginFragment extends Fragment {
     }
 
 
+    /*
+    Function that gets called every time a new user register in the application, both manually or via social networks
+
+    1 - Create an user object with the information about the current user
+    2 - Get a reference to the Cloud Firestone database , to a specific document, named as the id of the user
+    3 - Add the created object to the database
+    4 - Add a listener to the result coming from the database
+    5 - If the insert operation is successful, dismiss the progress dialog and show a toast to the user
+    6 - If the insert operation is not successful, dismiss the progress dialog and show a toast to the user
+     */
     private void insertUser(FirebaseUser user){
         User actualUser = new User(firebaseUser.getUid(), firebaseUser.getEmail());
         db.collection(DATABASE_COLLECTION)
@@ -360,14 +391,14 @@ public class LoginFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         pd.dismiss();
-                        Toast.makeText(getContext(), getString(R.string.welcome), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), getString(R.string.welcome), Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         pd.dismiss();
-                        Toast.makeText(getContext(), getString(R.string.error_generic), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), getString(R.string.error_generic), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -421,9 +452,14 @@ public class LoginFragment extends Fragment {
     }
 
 
+    /*
+    Method that gets called when another activity is shown to the main screen and then it's dismissed. So the actual activity
+    is again visible to the user. This happens when there is an authentication process via social networks.
+
+    Anyway, given that this is a fragment in a navigation controller, this method for this fragment is thrown from the parent activity
+     */
     @Override
     public void onActivityResult(final int requestCode, final int resultCode, @Nullable Intent data) {
-        Log.d("LOGINFRAGMENT","Entered in the on ativity result");
         if(requestCode == RC_GOOGLE_SIGNIN){
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleGoogleToken(task);
