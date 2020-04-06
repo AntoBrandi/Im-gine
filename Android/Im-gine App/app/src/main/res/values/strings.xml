@@ -59,10 +59,4 @@
     <!-- Confirmation Messages-->
     <string name="registration_successfully">Registration Successfully! Enjoy</string>
     <string name="welcome">Welcome</string>
-
-
-    <!--  Utilities strings -->
-    <string name="facebook_app_id">1393982230779520</string>
-    <string name="fb_login_protocol_scheme">fb1393982230779520</string>
-
 </resources>

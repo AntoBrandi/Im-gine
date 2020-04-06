@@ -288,7 +288,8 @@
                     <FrameLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:elevation="12dp">
+                        android:elevation="12dp"
+                        android:layout_marginRight="16dp">
 
                         <com.google.android.gms.common.SignInButton
                             android:layout_width="wrap_content"
@@ -301,6 +302,24 @@
                             android:layout_height="40dp"
                             android:id="@+id/google_button"
                             android:background="@drawable/google_login" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:elevation="12dp">
+
+                        <com.twitter.sdk.android.core.identity.TwitterLoginButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/twitter_login_button"
+                            android:visibility="gone"/>
+
+                        <ImageButton
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:id="@+id/twitter_button"
+                            android:background="@drawable/twitter_login" />
                     </FrameLayout>
 
 

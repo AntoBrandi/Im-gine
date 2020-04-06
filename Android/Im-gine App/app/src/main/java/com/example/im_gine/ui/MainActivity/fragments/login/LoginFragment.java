@@ -3,6 +3,7 @@ package com.example.im_gine.ui.MainActivity.fragments.login;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -45,7 +46,17 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.auth.TwitterAuthProvider;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.twitter.sdk.android.core.Callback;
+import com.twitter.sdk.android.core.Result;
+import com.twitter.sdk.android.core.Twitter;
+import com.twitter.sdk.android.core.TwitterAuthConfig;
+import com.twitter.sdk.android.core.TwitterConfig;
+import com.twitter.sdk.android.core.TwitterException;
+import com.twitter.sdk.android.core.TwitterSession;
+import com.twitter.sdk.android.core.identity.TwitterLoginButton;
+
 import custom_font.MyTextView;
 import model.User;
 
@@ -71,6 +82,8 @@ public class LoginFragment extends Fragment {
     private LoginButton facebookLoginButton;
     private ImageButton facebookButton;
     private ImageButton googleButton;
+    private ImageButton twitterButton;
+    private TwitterLoginButton twitterLoginButton;
 
 
     // Application variables
@@ -95,6 +108,15 @@ public class LoginFragment extends Fragment {
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // twitter login initialization
+        TwitterAuthConfig mTwitterAuthConfig = new TwitterAuthConfig(getString(R.string.twitter_consumer_key),
+                getString(R.string.twitter_consumer_secret));
+        TwitterConfig twitterConfig = new TwitterConfig.Builder(getContext())
+                .twitterAuthConfig(mTwitterAuthConfig)
+                .build();
+        Twitter.initialize(twitterConfig);
+
+        // view
         loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
         View view = inflater.inflate(R.layout.fragment_login, container, false);
         loginCardView = (CardView) view.findViewById(R.id.login_cardView);
@@ -115,6 +137,8 @@ public class LoginFragment extends Fragment {
         facebookLoginButton = (LoginButton) view.findViewById(R.id.facebook_login_button);
         facebookButton = (ImageButton) view.findViewById(R.id.facebook_button);
         googleButton = (ImageButton) view.findViewById(R.id.google_button);
+        twitterButton = (ImageButton) view.findViewById(R.id.twitter_button);
+        twitterLoginButton = (TwitterLoginButton) view.findViewById(R.id.twitter_login_button);
 
 
         // UI related settings
@@ -257,6 +281,28 @@ public class LoginFragment extends Fragment {
             public void onClick(View v) {
                 Intent signInIntent = googleSignInClient.getSignInIntent();
                 startActivityForResult(signInIntent, RC_GOOGLE_SIGNIN);
+            }
+        });
+
+
+        // twitter login
+        twitterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                twitterLoginButton.performClick();
+            }
+        });
+        twitterLoginButton.setCallback(new Callback<TwitterSession>() {
+            @Override
+            public void success(Result<TwitterSession> result) {
+                pd.show();
+                handleTwitterToken(result.data);
+            }
+
+            @Override
+            public void failure(TwitterException exception) {
+                Toast.makeText(getContext(), getString(R.string.error_generic),Toast.LENGTH_SHORT).show();
+                loginViewModel.authenticationFailed();
             }
         });
 
@@ -452,6 +498,28 @@ public class LoginFragment extends Fragment {
     }
 
 
+    private void handleTwitterToken(TwitterSession session){
+        AuthCredential credential = TwitterAuthProvider.getCredential(session.getAuthToken().token,
+                session.getAuthToken().secret);
+
+        auth.signInWithCredential(credential)
+                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()){
+                            firebaseUser = auth.getCurrentUser();
+                            loginViewModel.authenticationSuccessful();
+                            insertUser(firebaseUser);
+                        } else{
+                            Toast.makeText(getContext(), getString(R.string.error_generic), Toast.LENGTH_LONG).show();
+                            loginViewModel.authenticationFailed();
+                            pd.dismiss();
+                        }
+                    }
+                });
+    }
+
+
     /*
     Method that gets called when another activity is shown to the main screen and then it's dismissed. So the actual activity
     is again visible to the user. This happens when there is an authentication process via social networks.
@@ -463,8 +531,13 @@ public class LoginFragment extends Fragment {
         if(requestCode == RC_GOOGLE_SIGNIN){
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleGoogleToken(task);
-        } else{
+        }
+        else if(FacebookSdk.isFacebookRequestCode(requestCode))
+        {
             callbackManager.onActivityResult(requestCode, resultCode, data);
+        }
+        else{
+            twitterLoginButton.onActivityResult(requestCode, resultCode, data);
         }
     }
 }
