@@ -2,12 +2,14 @@
 <resources>
     <color name="colorPrimary">#08affc</color>
     <color name="colorPrimaryDark">#3793fc</color>
+    <color name="colorPrimaryVeryDark">#2c75c9</color>
     <color name="colorPrimaryLight">#09f6ea</color>
     <color name="colorSecondary">#6858e1</color>
     <color name="colorSecondaryDark">#7838f8</color>
     <color name="colorSecondaryLight">#a14afe</color>
     <color name="colorTextOnPrimary">#000000</color>
     <color name="colorTextOnSecondary">#ffffff</color>
+    <color name="colorTextOnSecondaryDarker">#F5F5F5</color>
     <color name="white">#FFFFFF</color>
     <color name="color1">#E6D519</color>
     <color name="color2">#d27855</color>

@@ -24,6 +24,7 @@ import model.Home_Model;
 public class All_Home extends Fragment {
 
 
+
     private Home_Adapter home_adapter;
     private RecyclerView recyclerview;
     private ArrayList<Home_Model> home_modelArrayList;

@@ -20,8 +20,9 @@ public class AddContentFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         addContentViewModel =
                 ViewModelProviders.of(this).get(AddContentViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_profile, container, false);
-        final TextView textView = root.findViewById(R.id.text_profile);
+        View root = inflater.inflate(R.layout.fragment_addcontent, container, false);
+
+        final TextView textView = root.findViewById(R.id.text_addContent);
         addContentViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
