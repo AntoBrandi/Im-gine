@@ -8,14 +8,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 import com.example.im_gine.R;
-import com.google.api.Distribution;
-
-import java.util.ArrayList;
 import java.util.List;
 import model.ChatCategory;
-import model.ChatSuggestion;
 
 public class ChatCategoryAdapter extends RecyclerView.Adapter<ChatCategoryAdapter.ViewHolder> {
 

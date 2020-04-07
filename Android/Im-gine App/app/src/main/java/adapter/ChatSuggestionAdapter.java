@@ -27,9 +27,17 @@ public class ChatSuggestionAdapter extends RecyclerView.Adapter<ChatSuggestionAd
     @NonNull
     @Override
     public ChatSuggestionAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = layoutInflater.inflate(R.layout.item_chat_card, parent, false);
-        return new ChatSuggestionAdapter.ViewHolder(view);
+        View view;
+        switch (viewType){
+            case 1:
+                view = layoutInflater.inflate(R.layout.item_groupchat_card, parent, false);
+                break;
+            default:
+                view = layoutInflater.inflate(R.layout.item_chat_card, parent, false);
+                break;
 
+        }
+        return new ChatSuggestionAdapter.ViewHolder(view);
     }
 
     @Override
@@ -42,6 +50,12 @@ public class ChatSuggestionAdapter extends RecyclerView.Adapter<ChatSuggestionAd
     @Override
     public int getItemCount() {
         return chatSuggestions.size();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        ChatSuggestion chatSuggestion = chatSuggestions.get(position);
+        return chatSuggestion.getType();
     }
 
     public class ViewHolder extends  RecyclerView.ViewHolder{

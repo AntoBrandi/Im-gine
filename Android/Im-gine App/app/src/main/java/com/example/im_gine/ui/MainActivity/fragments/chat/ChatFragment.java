@@ -24,6 +24,7 @@ public class ChatFragment extends Fragment {
     private ChatCategoryAdapter adapter;
     private ArrayList<ChatCategory> chatCategories;
     private ArrayList<ChatSuggestion> chatSuggestions;
+    private ArrayList<ChatSuggestion> chatGroupSuggestions;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         chatViewModel = ViewModelProviders.of(this).get(ChatViewModel.class);
@@ -31,13 +32,20 @@ public class ChatFragment extends Fragment {
         recyclerView = view.findViewById(R.id.chat_recyclerView);
         chatCategories = new ArrayList<>();
         chatSuggestions = new ArrayList<>();
+        chatGroupSuggestions = new ArrayList<>();
 
         chatSuggestions.add(new ChatSuggestion("Giulia",R.drawable.girl_1));
         chatSuggestions.add(new ChatSuggestion("Erika",R.drawable.girl_2));
         chatSuggestions.add(new ChatSuggestion("Cristina",R.drawable.girl_3));
         chatSuggestions.add(new ChatSuggestion("Manuela",R.drawable.girl_4));
+        chatGroupSuggestions.add(new ChatSuggestion("#Cars",R.drawable.group_1,1));
+        chatGroupSuggestions.add(new ChatSuggestion("#Movies",R.drawable.group_2,1));
+        chatGroupSuggestions.add(new ChatSuggestion("#Tech",R.drawable.group_3,1));
+        chatGroupSuggestions.add(new ChatSuggestion("#Soccer",R.drawable.group_4,1));
         chatCategories.add(new ChatCategory("Suggested For You", chatSuggestions));
         chatCategories.add(new ChatCategory("You might know", chatSuggestions));
+        chatCategories.add(new ChatCategory("Join a group", chatGroupSuggestions));
+        chatCategories.add(new ChatCategory("In your area", chatSuggestions));
         adapter = new ChatCategoryAdapter(chatCategories, getActivity());
 
         recyclerView.setHasFixedSize(true);
