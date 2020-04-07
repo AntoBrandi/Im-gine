@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.im_gine.R;
 import adapter.PostHomeAdapter;
 import model.Post;
-
 import java.util.ArrayList;
 import java.util.List;
 
