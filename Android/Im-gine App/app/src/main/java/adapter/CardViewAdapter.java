@@ -1,10 +1,7 @@
-package com.example.im_gine.ui.MainActivity.card;
+package adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +11,10 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.PagerAdapter;
-import com.example.im_gine.ChatActivity;
-import com.example.im_gine.MainActivity;
+
 import com.example.im_gine.R;
+import model.CardView;
+
 import java.util.List;
 
 public class CardViewAdapter  extends RecyclerView.Adapter<CardViewAdapter.ViewHolder> {

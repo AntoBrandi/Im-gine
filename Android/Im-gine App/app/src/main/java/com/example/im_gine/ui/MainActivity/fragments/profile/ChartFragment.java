@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.im_gine.R;
-import com.example.im_gine.ui.MainActivity.card.ChartAdapter;
+import adapter.ChartAdapter;
 import java.util.ArrayList;
 import model.Chart;
 

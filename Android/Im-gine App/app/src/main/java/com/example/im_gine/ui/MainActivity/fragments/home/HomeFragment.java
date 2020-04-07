@@ -10,8 +10,8 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.im_gine.R;
-import com.example.im_gine.ui.MainActivity.card.CardView;
-import com.example.im_gine.ui.MainActivity.card.CardViewAdapter;
+import model.CardView;
+import adapter.CardViewAdapter;
 import java.util.ArrayList;
 import java.util.List;
 

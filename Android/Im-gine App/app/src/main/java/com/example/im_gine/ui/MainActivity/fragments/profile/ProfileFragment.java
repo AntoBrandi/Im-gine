@@ -55,6 +55,8 @@ public class ProfileFragment extends Fragment {
         profileAdapter = new ProfileAdapter(getChildFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(profileAdapter);
         tabLayout.setupWithViewPager(viewPager);
+        tabLayout.getTabAt(0).setIcon(R.drawable.profile_chart);
+        tabLayout.getTabAt(1).setIcon(R.drawable.profile_post);
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {

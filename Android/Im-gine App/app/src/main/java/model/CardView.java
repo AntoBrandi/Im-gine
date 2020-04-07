@@ -1,4 +1,4 @@
-package com.example.im_gine.ui.MainActivity.card;
+package model;
 
 public class CardView {
 

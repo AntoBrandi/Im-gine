@@ -1,4 +1,4 @@
-package com.example.im_gine.ui.MainActivity.card;
+package adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

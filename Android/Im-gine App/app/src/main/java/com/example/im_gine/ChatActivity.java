@@ -33,6 +33,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import adapter.MessageAdapter;
 import model.Message;
 
 public class ChatActivity extends AppCompatActivity {
