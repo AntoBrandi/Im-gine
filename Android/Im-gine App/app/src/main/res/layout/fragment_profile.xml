@@ -10,6 +10,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/bar"
         android:backgroundTint="@android:color/transparent">
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
@@ -20,8 +21,9 @@
             <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:backgroundTint="@android:color/transparent"
+                android:background="@android:color/transparent"
                 app:layout_collapseMode="pin" />
+
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -165,7 +167,8 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/profile_profileInformation"
                         android:gravity="center"
-                        android:layout_marginBottom="24dp">
+                        android:id="@+id/profile_buttonSection"
+                        android:layout_marginBottom="8dp">
 
                         <custom_font.MyTextView
                             android:id="@+id/profile_profileFollowBtn"
@@ -181,6 +184,27 @@
                             android:textSize="14sp"
                             android:textColor="@color/white" />
                     </LinearLayout>
+
+                    <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/tabs"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:layout_below="@id/profile_buttonSection"
+                        app:tabIconTint="@color/white"
+                        android:background="@color/colorPrimary">
+
+                        <com.google.android.material.tabs.TabItem
+                            android:id="@+id/profile_charts"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:icon="@drawable/profile_chart" />
+
+                        <com.google.android.material.tabs.TabItem
+                            android:id="@+id/profile_posts"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:icon="@drawable/profile_post" />
+                    </com.google.android.material.tabs.TabLayout>
                 </RelativeLayout>
 
             </androidx.cardview.widget.CardView>
@@ -188,12 +212,13 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/profile_chart_recyclerView"
-            android:layout_marginBottom="?attr/actionBarSize"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        </androidx.recyclerview.widget.RecyclerView>
+    <androidx.viewpager.widget.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/profile_viewPager"
+        android:layout_marginBottom="?attr/actionBarSize"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    </androidx.viewpager.widget.ViewPager>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

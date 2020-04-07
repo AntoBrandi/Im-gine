@@ -26,8 +26,8 @@ public class ProfileFragment extends Fragment {
     private LoginViewModel loginViewModel;
 
     // UI variables
-    private RecyclerView chart_recyclerView;
-    private ChartAdapter chartAdapter;
+    //private RecyclerView chart_recyclerView;
+    //private ChartAdapter chartAdapter;
     private ArrayList<Chart> charts;
 
 
@@ -35,8 +35,8 @@ public class ProfileFragment extends Fragment {
         profileViewModel = ViewModelProviders.of(this).get(ProfileViewModel.class);
         loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
         final View view = inflater.inflate(R.layout.fragment_profile, container, false);
-        chart_recyclerView = view.findViewById(R.id.profile_chart_recyclerView);
-        chart_recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        //chart_recyclerView = view.findViewById(R.id.profile_chart_recyclerView);
+        //chart_recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         charts = new ArrayList<>();
 
 
@@ -64,7 +64,7 @@ public class ProfileFragment extends Fragment {
         charts.add(new Chart(R.drawable.horizontal_2,"Chart6"));
         charts.add(new Chart(R.drawable.horizontal_3,"Chart7"));
         charts.add(new Chart(R.drawable.horizontal_4,"Chart8"));
-        chartAdapter = new ChartAdapter(getActivity(), charts);
-        chart_recyclerView.setAdapter(chartAdapter);
+        //chartAdapter = new ChartAdapter(getActivity(), charts);
+        //chart_recyclerView.setAdapter(chartAdapter);
     }
 }
