@@ -44,7 +44,7 @@
                     android:id="@+id/post_views"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="16dp"
-                    android:layout_marginRight="8dp">
+                    android:layout_marginRight="4dp">
                 </ImageButton>
                 <TextView
                     android:layout_width="wrap_content"
@@ -52,7 +52,7 @@
                     android:id="@+id/post_viewsCount"
                     android:layout_toRightOf="@id/post_views"
                     android:layout_centerVertical="true"
-                    android:textSize="12sp"
+                    android:textSize="8sp"
                     android:text="1,265"
                     android:textColor="@color/colorTextOnPrimary">
                 </TextView>
@@ -64,8 +64,8 @@
                     android:src="@drawable/post_messages"
                     android:id="@+id/post_messages"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="8dp">
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="4dp">
                 </ImageButton>
                 <TextView
                     android:layout_width="wrap_content"
@@ -73,7 +73,7 @@
                     android:id="@+id/post_messagesCount"
                     android:layout_toRightOf="@id/post_messages"
                     android:layout_centerVertical="true"
-                    android:textSize="12sp"
+                    android:textSize="8sp"
                     android:text="23"
                     android:textColor="@color/colorTextOnPrimary">
                 </TextView>
@@ -85,8 +85,8 @@
                     android:src="@drawable/post_share"
                     android:id="@+id/post_share"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="8dp">
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="4dp">
                 </ImageButton>
                 <TextView
                     android:layout_width="wrap_content"
@@ -94,21 +94,10 @@
                     android:id="@+id/post_shareCount"
                     android:layout_toRightOf="@id/post_share"
                     android:layout_centerVertical="true"
-                    android:textSize="12sp"
+                    android:textSize="8sp"
                     android:text="2"
                     android:textColor="@color/colorTextOnPrimary">
                 </TextView>
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:layout_alignParentRight="true"
-                    android:src="@drawable/post_bookmark"
-                    android:id="@+id/post_bookmark"
-                    android:layout_centerVertical="true"
-                    android:layout_margin="8dp">
-                </ImageButton>
-
 
             </RelativeLayout>
 

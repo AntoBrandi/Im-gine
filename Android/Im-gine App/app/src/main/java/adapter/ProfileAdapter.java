@@ -1,5 +1,7 @@
 package adapter;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -20,8 +22,10 @@ public class ProfileAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch(position){
             case 0:
+                Log.d("BOSCH", "Chart item");
                 return new ChartFragment();
             case 1:
+                Log.d("BOSCH", "Post item");
                 return new PostFragment();
             default:
                 return null;
