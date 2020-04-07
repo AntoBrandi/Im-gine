@@ -6,13 +6,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.MainActivity.fragments.chat.ChatFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/chat_recyclerView"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:tabIconTint="@color/white"
+        android:background="@color/colorPrimary">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/profile_charts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/chat_dscover" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/profile_posts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/chat_hisory" />
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager.widget.ViewPager
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/tabs"
+        android:id="@+id/chat_viewPager"
         android:layout_marginBottom="?attr/actionBarSize">
 
-    </androidx.recyclerview.widget.RecyclerView>
-
-
+    </androidx.viewpager.widget.ViewPager>
 </RelativeLayout>

@@ -7,51 +7,50 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 import com.example.im_gine.R;
-import java.util.ArrayList;
-import adapter.ChatCategoryAdapter;
-import model.ChatCategory;
-import model.ChatSuggestion;
+import com.google.android.material.tabs.TabLayout;
+import adapter.ChatAdapter;
 
 public class ChatFragment extends Fragment {
 
     private ChatViewModel chatViewModel;
 
     // UI variables
-    private RecyclerView recyclerView;
-    private ChatCategoryAdapter adapter;
-    private ArrayList<ChatCategory> chatCategories;
-    private ArrayList<ChatSuggestion> chatSuggestions;
-    private ArrayList<ChatSuggestion> chatGroupSuggestions;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+    private ChatAdapter chatAdapter;
+
+
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         chatViewModel = ViewModelProviders.of(this).get(ChatViewModel.class);
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
-        recyclerView = view.findViewById(R.id.chat_recyclerView);
-        chatCategories = new ArrayList<>();
-        chatSuggestions = new ArrayList<>();
-        chatGroupSuggestions = new ArrayList<>();
+        tabLayout = view.findViewById(R.id.tabs);
+        viewPager = view.findViewById(R.id.chat_viewPager);
+        chatAdapter = new ChatAdapter(getChildFragmentManager(), tabLayout.getTabCount());
+        viewPager.setAdapter(chatAdapter);
+        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.getTabAt(0).setIcon(R.drawable.chat_dscover);
+        tabLayout.getTabAt(1).setIcon(R.drawable.chat_hisory);
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
 
-        chatSuggestions.add(new ChatSuggestion("Giulia",R.drawable.girl_1));
-        chatSuggestions.add(new ChatSuggestion("Erika",R.drawable.girl_2));
-        chatSuggestions.add(new ChatSuggestion("Cristina",R.drawable.girl_3));
-        chatSuggestions.add(new ChatSuggestion("Manuela",R.drawable.girl_4));
-        chatGroupSuggestions.add(new ChatSuggestion("#Cars",R.drawable.group_1,1));
-        chatGroupSuggestions.add(new ChatSuggestion("#Movies",R.drawable.group_2,1));
-        chatGroupSuggestions.add(new ChatSuggestion("#Tech",R.drawable.group_3,1));
-        chatGroupSuggestions.add(new ChatSuggestion("#Soccer",R.drawable.group_4,1));
-        chatCategories.add(new ChatCategory("Suggested For You", chatSuggestions));
-        chatCategories.add(new ChatCategory("You might know", chatSuggestions));
-        chatCategories.add(new ChatCategory("Join a group", chatGroupSuggestions));
-        chatCategories.add(new ChatCategory("In your area", chatSuggestions));
-        adapter = new ChatCategoryAdapter(chatCategories, getActivity());
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
 
-        recyclerView.setHasFixedSize(true);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+
 
         return view;
     }
