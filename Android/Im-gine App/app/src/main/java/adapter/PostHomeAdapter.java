@@ -11,18 +11,16 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.im_gine.R;
-import model.CardView;
-
+import model.Post;
 import java.util.List;
 
-public class CardViewAdapter  extends RecyclerView.Adapter<CardViewAdapter.ViewHolder> {
+public class PostHomeAdapter extends RecyclerView.Adapter<PostHomeAdapter.ViewHolder> {
 
-    private List<CardView> models;
+    private List<Post> models;
     private Context context;
 
-    public CardViewAdapter(List<CardView> models, Context context) {
+    public PostHomeAdapter(List<Post> models, Context context) {
         this.models = models;
         this.context = context;
     }
@@ -36,7 +34,7 @@ public class CardViewAdapter  extends RecyclerView.Adapter<CardViewAdapter.ViewH
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        final CardView card = models.get(position);
+        final Post card = models.get(position);
         holder.shared_imageView.setImageResource(models.get(position).getShared_image());
         holder.post_username.setText(models.get(position).getProfile_username());
         holder.content_textView.setText(models.get(position).getShared_text());

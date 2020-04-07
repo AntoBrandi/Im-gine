@@ -11,13 +11,13 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.im_gine.R;
 import java.util.ArrayList;
-import adapter.PostAdapter;
+import adapter.PostProfileAdapter;
 import model.Post;
 
 public class PostFragment extends Fragment {
 
     private RecyclerView post_recyclerView;
-    private PostAdapter postAdapter;
+    private PostProfileAdapter postAdapter;
     private ArrayList<Post> posts;
 
     @Nullable
@@ -31,7 +31,7 @@ public class PostFragment extends Fragment {
         posts.add(new Post(R.drawable.food, "Food","Miriam Leone", 1000, 23, 3));
         posts.add(new Post(R.drawable.travel, "Travel","Miriam Leone", 1000, 23, 3));
         posts.add(new Post(R.drawable.love, "Love","Miriam Leone", 1000, 23, 3));
-        postAdapter = new PostAdapter(getActivity(), posts);
+        postAdapter = new PostProfileAdapter(getActivity(), posts);
         post_recyclerView.setAdapter(postAdapter);
 
 

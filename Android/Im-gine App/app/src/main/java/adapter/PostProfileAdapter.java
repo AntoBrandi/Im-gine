@@ -12,25 +12,25 @@ import com.example.im_gine.R;
 import java.util.ArrayList;
 import model.Post;
 
-public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
+public class PostProfileAdapter extends RecyclerView.Adapter<PostProfileAdapter.ViewHolder> {
 
     private Context context;
     private ArrayList<Post> posts;
 
-    public PostAdapter(Context context, ArrayList<Post> posts) {
+    public PostProfileAdapter(Context context, ArrayList<Post> posts) {
         this.context = context;
         this.posts = posts;
     }
 
     @NonNull
     @Override
-    public PostAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public PostProfileAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_post, parent, false);
-        return new PostAdapter.ViewHolder(view);
+        return new PostProfileAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PostAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull PostProfileAdapter.ViewHolder holder, int position) {
         final Post post = posts.get(position);
         holder.shared_imageView.setImageResource(posts.get(position).getShared_image());
         holder.post_username.setText(posts.get(position).getProfile_username());

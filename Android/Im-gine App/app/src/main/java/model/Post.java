@@ -1,6 +1,7 @@
 package model;
 
 public class Post {
+    private int profile_image;
     private String profile_username;
     private int shared_image;
     private String shared_text;
@@ -8,13 +9,33 @@ public class Post {
     private int post_messages;
     private int post_shares;
 
-    public Post(int shared_image, String shared_text, String profile_username, int post_views, int post_messages, int post_shares) {
+    // Constructor for the post shown in the home page
+    public Post(int shared_image, String shared_text, int profile_image, String profile_username, int post_views, int post_messages, int post_shares) {
+        this.shared_image = shared_image;
+        this.shared_text = shared_text;
+        this.profile_image = profile_image;
+        this.profile_username = profile_username;
+        this.post_views = post_views;
+        this.post_messages = post_messages;
+        this.post_shares = post_shares;
+    }
+
+    // Constructor for the post shown in the profile page
+    public Post(int shared_image, String shared_text, String profile_username, int post_views, int post_messages, int post_shares){
         this.shared_image = shared_image;
         this.shared_text = shared_text;
         this.profile_username = profile_username;
         this.post_views = post_views;
         this.post_messages = post_messages;
         this.post_shares = post_shares;
+    }
+
+    public int getProfile_image() {
+        return profile_image;
+    }
+
+    public void setProfile_image(int profile_image) {
+        this.profile_image = profile_image;
     }
 
     public String getShared_text() {

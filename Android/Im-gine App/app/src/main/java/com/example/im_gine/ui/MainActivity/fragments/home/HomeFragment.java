@@ -10,16 +10,17 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.im_gine.R;
-import model.CardView;
-import adapter.CardViewAdapter;
+import adapter.PostHomeAdapter;
+import model.Post;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
 
     RecyclerView recyclerView;
-    CardViewAdapter adapter;
-    List<CardView> cards;
+    PostHomeAdapter adapter;
+    List<Post> posts;
 
     private HomeViewModel homeViewModel;
 
@@ -28,14 +29,14 @@ public class HomeFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         recyclerView = root.findViewById(R.id.home_recyclerView);
 
-        cards = new ArrayList<>();
-        cards.add(new CardView(R.drawable.tech, "My last tech toy", R.drawable.miriam_profile,"Miriam Leone", 1000, 23, 3));
-        cards.add(new CardView(R.drawable.food, "Food", R.drawable.miriam_profile,"Miriam Leone", 1000, 23, 3));
-        cards.add(new CardView(R.drawable.travel, "Travel",R.drawable.miriam_profile,"Miriam Leone", 1000, 23, 3));
-        cards.add(new CardView(R.drawable.love, "Love", R.drawable.miriam_profile,"Miriam Leone", 1000, 23, 3));
+        posts = new ArrayList<>();
+        posts.add(new Post(R.drawable.tech, "My last tech toy", R.drawable.miriam_profile,"Miriam Leone", 1000, 23, 3));
+        posts.add(new Post(R.drawable.food, "Food", R.drawable.miriam_profile,"Miriam Leone", 1000, 23, 3));
+        posts.add(new Post(R.drawable.travel, "Travel",R.drawable.miriam_profile,"Miriam Leone", 1000, 23, 3));
+        posts.add(new Post(R.drawable.love, "Love", R.drawable.miriam_profile,"Miriam Leone", 1000, 23, 3));
 
 
-        adapter = new CardViewAdapter(cards, getActivity());
+        adapter = new PostHomeAdapter(posts, getActivity());
 
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
