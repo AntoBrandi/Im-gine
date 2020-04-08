@@ -16,11 +16,32 @@
         android:background="@drawable/message_right"
         android:layout_marginRight="15dp"
         android:layout_alignParentEnd="true"
-        android:textColor="@color/colorTextOnPrimary"
+        android:textColor="@color/white"
+        android:text="Hi how are you going?"
         android:padding="8dp"
-        android:id="@+id/show_message"
-        android:textSize="18sp"
-        />
+        android:id="@+id/chat_message_item"
+        android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/chat_message_item"
+            android:text="12:23"
+            android:textSize="10sp"
+            android:layout_marginTop="4dp"
+            android:id="@+id/chat_message_time"
+            android:layout_toLeftOf="@id/chat_message_status"
+            android:layout_marginRight="8dp"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/chat_message_item"
+            android:layout_marginTop="4dp"
+            android:id="@+id/chat_message_status"
+            android:src="@drawable/chat_status_received" />
 
     </RelativeLayout>
 

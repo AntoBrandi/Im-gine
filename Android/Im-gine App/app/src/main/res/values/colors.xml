@@ -19,4 +19,5 @@
     <color name="login_light">#00f4e4</color>
     <color name="login_dark">#6858e1</color>
     <color name="login_medium">#08affc</color>
+    <color name="colorChatBackground">#EDFFFF</color>
 </resources>

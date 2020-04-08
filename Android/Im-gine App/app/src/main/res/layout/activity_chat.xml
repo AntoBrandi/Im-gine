@@ -1,66 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorChatBackground">
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/bar">
-
-        <androidx.appcompat.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/toolbar"
-            android:background="@color/colorPrimary"
-            android:theme="@style/AppTheme">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:textColor="@color/colorTextOnSecondary"
-                android:textStyle="bold"
-                android:layout_marginLeft="25dp"
-                android:id="@+id/chat_title"
-                android:layout_marginStart="25dp" />
-
-        </androidx.appcompat.widget.Toolbar>
-    </com.google.android.material.appbar.AppBarLayout>
+        android:id="@+id/chat_user"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:textColor="@color/colorTextOnPrimary"
+        android:textSize="18sp"
+        android:text="Miriam Leone"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/chat_user"
+        android:id="@+id/chat_user_lastAccess"
+        android:text="Last access 10:51"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/recycler_view"
-        android:layout_below="@id/bar"
-        android:layout_above="@id/message_section">
+        android:id="@+id/chat_recyclerView"
+        android:layout_below="@id/chat_user_lastAccess"
+        android:layout_above="@id/user_input_section">
 
     </androidx.recyclerview.widget.RecyclerView>
-    
-    <RelativeLayout
+
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:id="@+id/message_section"
-        android:background="@color/colorPrimaryLight"
+        android:id="@+id/user_input_section"
+        android:orientation="horizontal"
         android:layout_alignParentBottom="true">
-        
-        <EditText
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/text_message"
-            android:inputType="textAutoComplete|textAutoCorrect|textMultiLine"
-            android:background="@android:color/transparent"
-            android:hint="Type a message..."
-            android:layout_toLeftOf="@id/btnSend"
-            android:layout_centerVertical="true"/>
-        
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_marginLeft="16dp"
+            android:id="@+id/message_section"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:weightSum="1"
+            android:background="@drawable/message_section">
+
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".1"
+                android:src="@drawable/chat_emoticons"
+                android:background="@android:color/transparent"/>
+
+            <custom_font.MyEditText
+                android:layout_weight=".7"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:background="#00000000"
+                android:paddingLeft="10dp"
+                android:inputType="textEmailAddress"
+                android:letterSpacing="0.1"
+                android:textColor="@color/white"
+                android:id="@+id/chat_message"
+                android:drawablePadding="10dp"
+                android:textSize="13dp" />
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".1"
+                android:src="@drawable/chat_attach"
+                android:background="@android:color/transparent"/>
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".1"
+                android:src="@drawable/chat_image"
+                android:layout_marginRight="4dp"
+                android:background="@android:color/transparent"/>
+
+        </LinearLayout>
+
         <ImageButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:id="@+id/btnSend"
-            android:background="@drawable/ic_action_name"
-            android:layout_alignParentEnd="true"/>
-    </RelativeLayout>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/chat_vocalMessage"
+            android:id="@+id/chat_vocal_message"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/vocal_message" />
+
+    </LinearLayout>
 
 </RelativeLayout>
