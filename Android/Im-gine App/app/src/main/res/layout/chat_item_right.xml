@@ -19,7 +19,7 @@
         android:layout_marginRight="15dp"
         android:layout_alignParentEnd="true"
         android:textColor="@color/white"
-        android:elevation="12dp"
+        android:elevation="6dp"
         android:text="Hi how are you going?"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"

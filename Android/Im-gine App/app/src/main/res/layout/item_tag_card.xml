@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="108dp"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        app:cardCornerRadius="14dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="8dp"
+        android:id="@+id/item_addcontent_card">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.7"
+                android:src="@drawable/gradient_accent"/>
+            <ImageView
+                android:id="@+id/item_addcontent_card_image"
+                android:src="@drawable/group_4"
+                android:scaleType="centerCrop"
+                android:translationZ="-100dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="#covid19"
+                android:translationZ="100dp"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="1sp"
+                android:padding="2dp"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:id="@+id/item_addcontent_card_name"
+                android:maxLines="1"
+                android:textColor="@color/colorTextOnSecondary"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

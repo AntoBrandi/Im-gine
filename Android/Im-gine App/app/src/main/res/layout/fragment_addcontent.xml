@@ -1,24 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.MainActivity.fragments.addContent.AddContentFragment">
 
-    <TextView
-        android:id="@+id/text_addContent"
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginTop="-24dp"
+        android:elevation="12dp"
+        android:id="@+id/addcontent_header"
+        app:cardCornerRadius="24dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="24dp">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:textSize="18sp"
+                android:id="@+id/addcontent_text"
+                android:layout_margin="16dp"
+                android:gravity="start"
+                android:background="@android:color/transparent"
+                android:hint="What are you thinking about?"
+                android:inputType="textAutoCorrect|textAutoComplete|textMultiLine"/>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/addcontent_header"
+        android:id="@+id/addcontent_recyclerView"
+        android:layout_marginBottom="?attr/actionBarSize">
+    </androidx.recyclerview.widget.RecyclerView>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_alignBottom="@id/addcontent_recyclerView"
+        android:layout_alignParentRight="true"
+        android:layout_margin="16dp"
+        android:src="@drawable/addcontent_publish">
 
+    </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
