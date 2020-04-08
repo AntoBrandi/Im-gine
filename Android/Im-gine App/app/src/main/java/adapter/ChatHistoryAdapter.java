@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.im_gine.R;
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class ChatHistoryAdapter extends RecyclerView.Adapter<ChatHistoryAdapter.
         holder.lastMessage.setText(chatHistory.getLastMessage());
         holder.lastMessageTime.setText(chatHistory.getLastMessageTime());
         if(chatHistory.getUnreadMessages()<=0){
-            holder.unreadMessages.setVisibility(View.GONE);
+            holder.image.setVisibility(View.GONE);
         }
         else{
             holder.unreadMessages.setText(String.valueOf(chatHistory.getUnreadMessages()));
@@ -55,6 +56,7 @@ public class ChatHistoryAdapter extends RecyclerView.Adapter<ChatHistoryAdapter.
         TextView lastMessage;
         TextView lastMessageTime;
         TextView unreadMessages;
+        CardView image;
 
         public ViewHolder(View view){
             super(view);
@@ -63,6 +65,7 @@ public class ChatHistoryAdapter extends RecyclerView.Adapter<ChatHistoryAdapter.
             lastMessage = view.findViewById(R.id.chat_history_lastMessage);
             lastMessageTime = view.findViewById(R.id.chat_history_lastMessageTime);
             unreadMessages = view.findViewById(R.id.chat_history_unreadMessages);
+            image = view.findViewById(R.id.image);
         }
     }
 }
