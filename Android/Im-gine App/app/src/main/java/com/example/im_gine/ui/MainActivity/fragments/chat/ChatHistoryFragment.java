@@ -1,5 +1,6 @@
 package com.example.im_gine.ui.MainActivity.fragments.chat;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,12 +10,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.im_gine.ChatActivity;
 import com.example.im_gine.R;
 import java.util.ArrayList;
 import adapter.ChatHistoryAdapter;
 import model.ChatHistory;
 
-public class ChatHistoryFragment extends Fragment {
+public class ChatHistoryFragment extends Fragment implements ChatHistoryAdapter.OnChatClickListener {
 
     private RecyclerView recyclerView;
     private ChatHistoryAdapter adapter;
@@ -33,12 +36,20 @@ public class ChatHistoryFragment extends Fragment {
         chatHistoryList.add(new ChatHistory(R.drawable.miriam_profile,"Miriam Leone","Hey how are you?","13:43",1547));
         chatHistoryList.add(new ChatHistory(R.drawable.miriam_profile,"Miriam Leone","Hey how are you?","13:43"));
 
-        adapter = new ChatHistoryAdapter(getActivity(), chatHistoryList);
+        adapter = new ChatHistoryAdapter(getActivity(), chatHistoryList,this);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
 
+
         return view;
+    }
+
+    @Override
+    public void onChatClick(int position) {
+        ChatHistory chatHistory = chatHistoryList.get(position);
+        Intent i = new Intent(getContext(), ChatActivity.class);
+        startActivity(i);
     }
 }

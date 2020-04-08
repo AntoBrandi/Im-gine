@@ -17,17 +17,19 @@ public class ChatHistoryAdapter extends RecyclerView.Adapter<ChatHistoryAdapter.
 
     private Context context;
     private ArrayList<ChatHistory> chatHistories;
+    private OnChatClickListener chatClickListener;
 
-    public ChatHistoryAdapter(Context context, ArrayList<ChatHistory> chatHistories){
+    public ChatHistoryAdapter(Context context, ArrayList<ChatHistory> chatHistories,OnChatClickListener chatClickListener){
         this.context = context;
         this.chatHistories = chatHistories;
+        this.chatClickListener = chatClickListener;
     }
 
     @NonNull
     @Override
     public ChatHistoryAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chat_history, parent, false);
-        return new ChatHistoryAdapter.ViewHolder(view);
+        return new ChatHistoryAdapter.ViewHolder(view, chatClickListener);
     }
 
     @Override
@@ -50,15 +52,16 @@ public class ChatHistoryAdapter extends RecyclerView.Adapter<ChatHistoryAdapter.
         return this.chatHistories.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView profileImage;
         TextView profileUsername;
         TextView lastMessage;
         TextView lastMessageTime;
         TextView unreadMessages;
         CardView image;
+        OnChatClickListener chatClickListener;
 
-        public ViewHolder(View view){
+        public ViewHolder(View view, OnChatClickListener chatClickListener){
             super(view);
             profileImage = view.findViewById(R.id.chat_history_profileImage);
             profileUsername = view.findViewById(R.id.chat_history_profileUsername);
@@ -66,6 +69,19 @@ public class ChatHistoryAdapter extends RecyclerView.Adapter<ChatHistoryAdapter.
             lastMessageTime = view.findViewById(R.id.chat_history_lastMessageTime);
             unreadMessages = view.findViewById(R.id.chat_history_unreadMessages);
             image = view.findViewById(R.id.image);
+
+            this.chatClickListener = chatClickListener;
+            view.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View v) {
+            chatClickListener.onChatClick(getAdapterPosition());
+        }
+    }
+
+    // Listener for the click on a Item of the recycler view
+    public interface OnChatClickListener{
+        void onChatClick(int position);
     }
 }

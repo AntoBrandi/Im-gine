@@ -2,22 +2,39 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
     android:padding="8dp">
 
     <RelativeLayout
         android:layout_width="300dp"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/message_left"
         android:layout_marginLeft="15dp"
-        android:padding="8dp"
-        android:id="@+id/show_message"
-        android:textSize="18sp"
-        android:textColor="@color/colorTextOnPrimary"
-        />
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:paddingLeft="16dp"
+        android:elevation="12dp"
+        android:paddingRight="16dp"
+        android:id="@+id/chat_message_item"
+        android:textSize="14sp"
+        android:textColor="@color/colorPrimary"
+        android:text="Hi, how are you" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:layout_below="@id/chat_message_item"
+            android:text="12:23"
+            android:textSize="10sp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="4dp"
+            android:id="@+id/chat_message_time" />
+
     </RelativeLayout>
 
 </RelativeLayout>

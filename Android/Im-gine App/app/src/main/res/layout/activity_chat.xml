@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<RelativeLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorChatBackground">
+    android:background="@color/colorChatBackground"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -55,6 +55,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight=".1"
+                android:id="@+id/chat_emoticon"
                 android:src="@drawable/chat_emoticons"
                 android:background="@android:color/transparent"/>
 
@@ -64,7 +65,7 @@
                 android:layout_height="40dp"
                 android:background="#00000000"
                 android:paddingLeft="10dp"
-                android:inputType="textEmailAddress"
+                android:inputType="textAutoCorrect|textAutoComplete|textMultiLine"
                 android:letterSpacing="0.1"
                 android:textColor="@color/white"
                 android:id="@+id/chat_message"
@@ -74,6 +75,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight=".1"
+                android:id="@+id/chat_attach"
                 android:src="@drawable/chat_attach"
                 android:background="@android:color/transparent"/>
             <ImageButton
@@ -81,6 +83,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight=".1"
                 android:src="@drawable/chat_image"
+                android:id="@+id/chat_gallery"
                 android:layout_marginRight="4dp"
                 android:background="@android:color/transparent"/>
 
@@ -89,7 +92,7 @@
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/chat_vocalMessage"
+            android:src="@drawable/chat_vocalmessage"
             android:id="@+id/chat_vocal_message"
             android:layout_marginRight="16dp"
             android:background="@drawable/vocal_message" />

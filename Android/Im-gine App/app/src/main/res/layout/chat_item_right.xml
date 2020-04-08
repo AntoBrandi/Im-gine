@@ -3,11 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
     android:padding="8dp">
 
     <RelativeLayout
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
         android:layout_alignParentEnd="true">
 
     <TextView
@@ -17,31 +19,39 @@
         android:layout_marginRight="15dp"
         android:layout_alignParentEnd="true"
         android:textColor="@color/white"
+        android:elevation="12dp"
         android:text="Hi how are you going?"
-        android:padding="8dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
         android:id="@+id/chat_message_item"
-        android:textSize="12sp" />
+        android:textSize="14sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
             android:layout_below="@id/chat_message_item"
             android:text="12:23"
             android:textSize="10sp"
             android:layout_marginTop="4dp"
             android:id="@+id/chat_message_time"
             android:layout_toLeftOf="@id/chat_message_status"
-            android:layout_marginRight="8dp"/>
+            android:layout_marginRight="8dp"
+            android:layout_alignBaseline="@id/chat_message_status"/>
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="16dp"
+            android:background="@android:color/transparent"
+            android:layout_height="16dp"
             android:layout_marginRight="15dp"
             android:layout_alignParentEnd="true"
             android:layout_below="@id/chat_message_item"
             android:layout_marginTop="4dp"
             android:id="@+id/chat_message_status"
-            android:src="@drawable/chat_status_received" />
+            android:src="@drawable/chat_status_received"
+            android:tint="@color/colorPrimary"/>
 
     </RelativeLayout>
 
