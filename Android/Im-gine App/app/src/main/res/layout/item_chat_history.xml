@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:weightSum="1"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight=".15">
+        <androidx.cardview.widget.CardView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/chat_history_image"
+            app:cardCornerRadius="20dp"
+            android:layout_gravity="center"
+            android:layout_margin="8dp">
+            <ImageView
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:id="@+id/chat_history_profileImage"
+                android:scaleType="centerCrop"
+                android:src="@drawable/miriam_profile"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true">
+            </ImageView>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight=".7"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:textSize="16sp"
+            android:text="Miriam Leone"
+            android:id="@+id/chat_history_profileUsername"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimaryVeryDark"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorTextOnPrimary"
+            android:textSize="12sp"
+            android:text="Hey how are you?"
+            android:id="@+id/chat_history_lastMessage"
+            android:layout_marginLeft="8dp"
+            android:layout_marginBottom="8dp"/>
+
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_weight=".15"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="12:32"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            android:id="@+id/chat_history_lastMessageTime"
+            android:layout_marginRight="8dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="8dp"
+            android:layout_below="@id/chat_history_lastMessageTime"
+            android:id="@+id/chat_history_unreadMessages"
+            android:background="@drawable/round_gradient"
+            android:text="23"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:padding="3dp"/>
+    </RelativeLayout>
+
+</LinearLayout>

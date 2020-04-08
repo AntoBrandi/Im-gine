@@ -17,9 +17,9 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
 
-    RecyclerView recyclerView;
-    PostHomeAdapter adapter;
-    List<Post> posts;
+    private RecyclerView recyclerView;
+    private PostHomeAdapter adapter;
+    private List<Post> posts;
 
     private HomeViewModel homeViewModel;
 
