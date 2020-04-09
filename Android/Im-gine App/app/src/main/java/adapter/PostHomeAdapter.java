@@ -17,32 +17,32 @@ import java.util.List;
 
 public class PostHomeAdapter extends RecyclerView.Adapter<PostHomeAdapter.ViewHolder> {
 
-    private List<Post> models;
+    private List<Post> posts;
     private Context context;
 
-    public PostHomeAdapter(List<Post> models, Context context) {
-        this.models = models;
+    public PostHomeAdapter(List<Post> posts, Context context) {
+        this.posts = posts;
         this.context = context;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_home, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        final Post card = models.get(position);
-        holder.shared_imageView.setImageResource(models.get(position).getShared_image());
-        holder.post_username.setText(models.get(position).getProfile_username());
-        holder.content_textView.setText(models.get(position).getShared_text());
-        holder.profile_imageView.setImageResource(models.get(position).getProfile_image());
-        holder.profile_textView.setText(models.get(position).getProfile_username());
-        holder.views_textView.setText(String.valueOf(models.get(position).getPost_views()));
-        holder.messages_textView.setText(String.valueOf(models.get(position).getPost_messages()));
-        holder.shares_textView.setText(String.valueOf(models.get(position).getPost_shares()));
+        final Post post = posts.get(position);
+        holder.shared_imageView.setImageResource(post.getShared_image());
+        holder.post_username.setText(post.getProfile_username());
+        holder.content_textView.setText(post.getShared_text());
+        holder.profile_imageView.setImageResource(post.getProfile_image());
+        holder.profile_textView.setText(post.getProfile_username());
+        holder.views_textView.setText(String.valueOf(post.getPost_views()));
+        holder.messages_textView.setText(String.valueOf(post.getPost_messages()));
+        holder.shares_textView.setText(String.valueOf(post.getPost_shares()));
 
         holder.post_more.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,7 +74,7 @@ public class PostHomeAdapter extends RecyclerView.Adapter<PostHomeAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return models.size();
+        return posts.size();
     }
 
 

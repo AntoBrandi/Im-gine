@@ -23,7 +23,7 @@ public class ChartFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_charts, container, false);
+        final View view = inflater.inflate(R.layout.fragment_profile_charts, container, false);
         chart_recyclerView = view.findViewById(R.id.profile_chart_recyclerView);
         chart_recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         charts = new ArrayList<>();

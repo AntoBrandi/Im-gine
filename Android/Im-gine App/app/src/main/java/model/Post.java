@@ -1,5 +1,18 @@
 package model;
 
+
+/**
+ * Post Class
+ *
+ * This class represent a single post element in the home layout. This class represents the model
+ * for the layout of a single post in the application. Two constructors have been implemented because there
+ * will be different ways to show a post in the application, each of them showing different elements.
+ * The first constructor is linked to the layout <layout name="item_home"></layout> which is a single item
+ * of the recycler view in the <layout name="fragment_home"></layout>. This includes all the elements in the view.
+ * The second constructor is linked to the layout <layout name="item_profile_post"></layout> which is a single item
+ * of the recycler view in the <layout name="fragment_profile_posts"></layout> belonging to the <layout name="fragment_profile"></layout>.
+ * This is a quick representation of all the posts so not all the data are shown.
+ */
 public class Post {
     private int profile_image;
     private String profile_username;

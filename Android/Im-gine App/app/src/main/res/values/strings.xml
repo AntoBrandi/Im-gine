@@ -31,32 +31,17 @@
     <string name="signup_existingAccount">Do you already have an account? Login</string>
     <string name="signup_title">Register</string>
 
-    <string name="signup_login">Signin</string>
-    <string name="signup_help">Need Help ?</string>
-    <string name="login_with">Or</string>
-
     <!-- Error Messages-->
     <string name="blank_username">Username can\'t be blank</string>
     <string name="blank_password">Password can\'t be blank</string>
     <string name="loading">Loading...</string>
-    <string name="user_not_found">User not Found</string>
-    <string name="incorrect_password">Password Incorrect</string>
-    <string name="no_connection">Error while connecting to the server. Please make sure your connection is on</string>
-    <string name="auth_failure">Authentication Failed, username or password were incorrect</string>
-    <string name="internal_server_error">An error occurred on the server. Please Try again later</string>
-    <string name="network_error">A network error occurred, please try again</string>
-    <string name="unknown_error">An unknown error occurred</string>
     <string name="blank_mail">Email can\'t be blank</string>
-    <string name="invalid_character">Invalid character, please use only alphanumeric symbols</string>
     <string name="short_user">The inserted mail is too short</string>
     <string name="short_password">The inserted password is too short, use at least 5 characters</string>
     <string name="password_not_confirmed">The inserted passwords does not match</string>
-    <string name="duplicated_username">The selected Username already exist</string>
     <string name="error_generic">Something got wrong. Please try again later</string>
-    <string name="user_already_registered">The selected user already exist in the database, please login</string>
     <string name="invalid_credentials">Username or Password were incorrect</string>
 
     <!-- Confirmation Messages-->
-    <string name="registration_successfully">Registration Successfully! Enjoy</string>
     <string name="welcome">Welcome</string>
 </resources>

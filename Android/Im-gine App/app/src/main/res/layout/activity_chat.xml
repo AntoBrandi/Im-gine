@@ -62,7 +62,7 @@
             <custom_font.MyEditText
                 android:layout_weight=".7"
                 android:layout_width="0dp"
-                android:layout_height="40dp"
+                android:layout_height="50dp"
                 android:background="#00000000"
                 android:paddingLeft="10dp"
                 android:inputType="textAutoCorrect|textAutoComplete|textMultiLine"

@@ -25,19 +25,19 @@ public class PostProfileAdapter extends RecyclerView.Adapter<PostProfileAdapter.
     @NonNull
     @Override
     public PostProfileAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_post, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_profile_post, parent, false);
         return new PostProfileAdapter.ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull PostProfileAdapter.ViewHolder holder, int position) {
         final Post post = posts.get(position);
-        holder.shared_imageView.setImageResource(posts.get(position).getShared_image());
-        holder.post_username.setText(posts.get(position).getProfile_username());
-        holder.content_textView.setText(posts.get(position).getShared_text());
-        holder.views_textView.setText(String.valueOf(posts.get(position).getPost_views()));
-        holder.messages_textView.setText(String.valueOf(posts.get(position).getPost_messages()));
-        holder.shares_textView.setText(String.valueOf(posts.get(position).getPost_shares()));
+        holder.shared_imageView.setImageResource(post.getShared_image());
+        holder.post_username.setText(post.getProfile_username());
+        holder.content_textView.setText(post.getShared_text());
+        holder.views_textView.setText(String.valueOf(post.getPost_views()));
+        holder.messages_textView.setText(String.valueOf(post.getPost_messages()));
+        holder.shares_textView.setText(String.valueOf(post.getPost_shares()));
     }
 
     @Override

@@ -31,8 +31,8 @@ public class ChatFragment extends Fragment {
         chatAdapter = new ChatAdapter(getChildFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(chatAdapter);
         tabLayout.setupWithViewPager(viewPager);
-        tabLayout.getTabAt(0).setIcon(R.drawable.chat_dscover);
-        tabLayout.getTabAt(1).setIcon(R.drawable.chat_hisory);
+        tabLayout.getTabAt(0).setIcon(R.drawable.chat_discover);
+        tabLayout.getTabAt(1).setIcon(R.drawable.chat_history);
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {

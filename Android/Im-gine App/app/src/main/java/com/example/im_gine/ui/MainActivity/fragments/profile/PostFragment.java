@@ -23,7 +23,7 @@ public class PostFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_posts, container, false);
+        final View view = inflater.inflate(R.layout.fragment_profile_posts, container, false);
         post_recyclerView = view.findViewById(R.id.profile_post_recyclerView);
         post_recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         posts = new ArrayList<>();

@@ -24,22 +24,22 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     // Firebase variables
     FirebaseUser firebaseUser;
 
-    private Context mContext;
-    private List<Message> mMessages;
+    private Context context;
+    private List<Message> messages;
 
-    public MessageAdapter(Context mContext, List<Message> mMessages){
-        this.mContext = mContext;
-        this.mMessages = mMessages;
+    public MessageAdapter(Context context, List<Message> messages){
+        this.context = context;
+        this.messages = messages;
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == MSH_TYPE_RIGHT){
-            View view = LayoutInflater.from(mContext).inflate(R.layout.chat_item_right, parent, false);
+            View view = LayoutInflater.from(context).inflate(R.layout.item_chat_right, parent, false);
             return new MessageAdapter.ViewHolderRight(view);
         } else{
-            View view = LayoutInflater.from(mContext).inflate(R.layout.chat_item_left, parent, false);
+            View view = LayoutInflater.from(context).inflate(R.layout.item_chat_left, parent, false);
             return new MessageAdapter.ViewHolderLeft(view);
         }
     }
@@ -47,7 +47,7 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        Message message = mMessages.get(position);
+        Message message = messages.get(position);
         if (holder.getItemViewType()==MSH_TYPE_RIGHT){
             ViewHolderRight viewHolder = (ViewHolderRight) holder;
             viewHolder.messageContent.setText(message.get_messageText());
@@ -63,14 +63,14 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @Override
     public int getItemCount() {
-        return mMessages.size();
+        return messages.size();
     }
 
     @Override
     public int getItemViewType(int position) {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        if (mMessages.get(position).get_sender().equals(firebaseUser.getUid())){
+        if (messages.get(position).get_sender().equals(firebaseUser.getUid())){
             return MSH_TYPE_RIGHT;
         } else{
             return MSH_TYPE_LEFT;

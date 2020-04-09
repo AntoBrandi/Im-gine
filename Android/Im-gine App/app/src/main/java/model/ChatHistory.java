@@ -1,5 +1,15 @@
 package model;
 
+/**
+ * ChatHistory class
+ *
+ * This class models an item in the <layout name="fragment_chat_history"></layout> which is an element in the <layout name="fragment_chat"></layout>.
+ * This represent a single conversation that the user had with another user or in a group of users. So, in the <layout name="fragment_chat_history"></layout>
+ * is displayed a list of ChatHistory elements with their view, concerning all the conversations had by the user.
+ * Two constructors have been implemented in order to set a default value of 0 to the <attribute name="unreadMessages"></attribute> which counts
+ * the number of messages sent by a specific user that haven't been read yet.
+ * If not provided, the number of unread messages is 0.
+ */
 public class ChatHistory {
     private int profileImage;
     private String profileUsername;

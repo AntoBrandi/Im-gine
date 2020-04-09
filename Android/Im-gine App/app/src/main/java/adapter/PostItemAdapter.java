@@ -27,10 +27,10 @@ public class PostItemAdapter extends RecyclerView.Adapter<PostItemAdapter.ViewHo
         View view;
         switch (viewType){
             case 1:
-                view = LayoutInflater.from(context).inflate(R.layout.item_tag_card, parent, false);
+                view = LayoutInflater.from(context).inflate(R.layout.item_addcontent_tag, parent, false);
                 break;
             default:
-                view = LayoutInflater.from(context).inflate(R.layout.item_postcomponent_card, parent, false);
+                view = LayoutInflater.from(context).inflate(R.layout.item_addcontent_component, parent, false);
                 break;
         }
         return new PostItemAdapter.ViewHolder(view);

@@ -30,10 +30,10 @@ public class ChatSuggestionAdapter extends RecyclerView.Adapter<ChatSuggestionAd
         View view;
         switch (viewType){
             case 1:
-                view = layoutInflater.inflate(R.layout.item_groupchat_card, parent, false);
+                view = layoutInflater.inflate(R.layout.item_chat_discover_group, parent, false);
                 break;
             default:
-                view = layoutInflater.inflate(R.layout.item_chat_card, parent, false);
+                view = layoutInflater.inflate(R.layout.item_chat_discover_person, parent, false);
                 break;
 
         }

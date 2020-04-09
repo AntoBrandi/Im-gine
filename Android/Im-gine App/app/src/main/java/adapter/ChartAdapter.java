@@ -25,14 +25,14 @@ public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.ViewHolder> 
     @NonNull
     @Override
     public ChartAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_chart, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_profile_chart, parent, false);
         return new ChartAdapter.ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ChartAdapter.ViewHolder holder, int position) {
         final Chart chart = charts.get(position);
-        holder.chart_image.setImageResource(charts.get(position).getChart_image());
+        holder.chart_image.setImageResource(chart.getChart_image());
     }
 
     @Override
